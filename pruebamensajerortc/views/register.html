@@ -2,10 +2,8 @@
 <html>
 <head>
 	<title>LoginApp</title>
+	<link rel="stylesheet" href="/css/bootstrap.css" />
 	<link rel="stylesheet" href="/css/style.css" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -27,35 +25,27 @@
           
           <h2 class="page-header">Register</h2>
 <form method="post" action="/users/register">
-<div class="row">
-  <div class="col-md-6">
    <div class="form-group">
-    <label>Nombre</label>
+    <label>Name</label>
     <input type="text" class="form-control" placeholder="Name" name="name">
   </div>
   <div class="form-group">
-    <label>Apellidos</label>
+    <label>Username</label>
     <input type="text" class="form-control" placeholder="Username" name="username">
   </div>
    <div class="form-group">
     <label>Email</label>
     <input type="email" class="form-control" placeholder="Email" name="email">
-	 <label>numero de empleado</label>
-    <input type="email" class="form-control" placeholder="numero empleado" name="numero_empleado">
   </div>
-  </div>
-  <div class="row">
-  <div class="col-md-6">
   <div class="form-group">
-    <label>Contraseña</label>
+    <label>Password</label>
     <input type="password" class="form-control" placeholder="Password" name="password">
   </div>
   <div class="form-group">
-    <label>Confirmar contraeña</label>
+    <label>Confirm Password</label>
     <input type="password" class="form-control" placeholder="Password" name="password2">
   </div>
-  <button type="submit" class="btn btn-default">resgistrar</button>
-  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
 </form>
         </div>
 
