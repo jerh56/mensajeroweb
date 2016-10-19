@@ -28,7 +28,7 @@ var User = require('./models/user.js');
 var app = express();
 
     mongoose.connect(dbConfig.url);
-    //mongoose.connect('mongodb://localhost/loginapp');
+    //mongoose.connect('mongodb://localhost/MensajeroRTC');
 
 
 // view engine setup
