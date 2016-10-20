@@ -26,31 +26,37 @@
 <form method="post" action="/users/register">
   <div class="row">
    <div class="col-sm-6">
-   <h3 class="header" >Datos Generales</h3>
+   <h4 class="header" ><b>Datos Generales</b></h4>
     <div class="form-group">
      <label>Nombre:</label>
      <input type="text" class="form-control" placeholder="Nombre" name="Nombre">
     </div>
    <div class="form-group">
     <label>Apellido Paterno:</label>
+
     <input type="text" class="form-control" placeholder="Apellido Paterno" name="Ap_Paterno">
   </div>
   <div class="form-group">
     <label>Apellido Materno:</label>
     <input type="text" class="form-control" placeholder="Apellido Materno" name="Ap_Materno">
+
+  </div>
+  <div class="form-group">
+    <label>Apellido Materno:</label>
+    <input type="text" class="form-control" placeholder="Apellido Materno" name="Ap_materno">
+
   </div>
    <div class="form-group">
     <label>Numero de empleado</label>
     <input type="text" class="form-control" placeholder="No. Empleado" name="username">
   </div>
    <div class="form-group">
-    <label>Puesto:</label>
-	<br>
-	<select name="Puesto">
-        <option value="usuario">Usuario</option>
-        <option value="agente">Agente</option>
-        <option value="administrador">Administrador</option>   
-    </select>
+    
+	<label for="disabledSelect">Puesto</label>
+      <select id="disabledSelect" class="form-control">
+        <option>12</option>
+		<option>13</option>
+      </select>
   </div>
    <div class="form-group">
     <label>Email</label>
@@ -68,44 +74,45 @@
   
   <div class="row">
   <div class="col-sm-6">
-  <h3 class="header" >Region</h3>
+  <h4 class="header"><b>Region</b></h4>
    <div class="form-group">
-    <label>Pais:</label>
-	<br>
-	<select name="Pais">
-        <option value="Mexico">Mexico</option>   
-    </select>
-  </div>
-   <div class="form-group">
-    <label>Estado:</label>
-	<br>
-	<select name="Estado">
-        <option value="Sinaloa">Sinaloa</option>  
-    </select>
-  </div>
-   <div class="form-group">
-    <label>Ciudad:</label>
-	<br>
-	<select name="Ciudad">
-        <option value="Culiacan">Culiacan</option>   
-    </select>
-  </div>
-  <h3 class="header" >Area</h3>
-   <div class="form-group">
-    <label>Area:</label>
-	<br>
-	<select name="Area">
-        <option value="Tienda">Tienda</option>   
-    </select>
-  </div>
-   <div class="form-group">
-    <label>Departamento:</label>
-	<br>
-	<select name="Departamento">
-        <option value="Ropa">Ropa</option>   
-    </select>
-  </div>
-  
+   <label for="disabledSelect">Pais</label>
+      <select id="disabledSelect" class="form-control">
+        <option>mexico</option>
+		<option>brasil</option>
+      </select>
+	 </div>
+  <div class="form-group">
+  <label for="disabledSelect">Estado</label>
+      <select id="disabledSelect" class="form-control">
+        <option>sianaloa</option>
+		<option>durango</option>
+      </select>
+	 </div>
+<div class="form-group">	 
+   <label for="disabledSelect">ciudad</label>
+      <select id="disabledSelect" class="form-control">
+        <option>culiacan</option>
+		<option>guasave</option>
+      </select>
+	  </div
+  <br>
+  <h4 class="header"><b>Area</b></h4>
+  <div class="form-group">
+   <label for="disabledSelect">Area</label>
+      <select id="disabledSelect" class="form-control">
+        <option>ropa</option>
+		<option>muebles</option>
+      </select>
+	  </div>
+	  <div class="form-group">
+	  <label for="disabledSelect">Departamento</label>
+      <select id="disabledSelect" class="form-control">
+        <option>1</option>
+		<option>2</option>
+      </select>
+	  <br>
+	
   <button type="submit" class="btn btn-default">Submit</button>
  <a href="/users/register" class="btn btn-default" role="button">Cancelar</a>
   </div>
