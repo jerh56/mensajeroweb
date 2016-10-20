@@ -15,7 +15,7 @@ body {
 /* Custom page header */
 .header {
   padding-bottom: 20px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 2px solid #e5e5e5;
 }
 /* Make the masthead heading the same height as the navigation */
 .header h3 {
@@ -34,7 +34,7 @@ body {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 850px;
   }
 }
 .container-narrow > hr {
@@ -80,6 +80,7 @@ body {
 
 .page-header{
   margin-top:0;
+  text-align:center;
 }
 
 footer{
