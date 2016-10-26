@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Registra tu Empresa</title>
+	<link rel="stylesheet" href="/css/bootstrap.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	<div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+              <li role="presentation"><a href="/">Inicio</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">MensajeroRTC</h3>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-12">
+
+          <h3 class="page-header">Registro De Empresa</h3>
+		  
+<form method="post" action="/users/registroempresa">
+  
+  <div class="row">
+   <div class="col-sm-6">
+   <h4 class="header" ><b>Datos Generales</b></h4>
+    
+	<div class="form-group">	
+     <label>Nombre Corto de la Empresa:</label>
+     <input type="text" class="form-control" placeholder="Nombre" name="Nombre">
+    </div>
+	
+   <div class="form-group">
+    <label>Razon Social:</label>
+    <input type="text" class="form-control" placeholder="Razon Social" name="Razon_Social">
+  </div>
+  
+  <div class="form-group">
+    <label>RFC:</label>
+    <input type="text" class="form-control" placeholder="RFC" name="RFC">
+
+  </div>
+  <div class="form-group">
+    <label>Correo Electronico:</label>
+    <input type="text" class="form-control" placeholder="Correo Electronico" name="email">
+  </div>
+  </div>
+
+  
+  <div class="row">
+  <div class="col-sm-6">
+  <h4 class="header"><b>Domicilio</b></h4>
+   <div class="form-group">
+   <label for="disabledSelect">Pais</label>
+      <select id="disabledSelect" class="form-control">
+        <option>Mexico</option>
+		<option>Brasil</option>
+      </select>
+	 </div>
+  <div class="form-group">
+  <label for="disabledSelect">Estado</label>
+      <select id="disabledSelect" class="form-control">
+        <option>sinaloa</option>
+		<option>Durango</option>
+      </select>
+	 </div>
+<div class="form-group">	 
+   <label for="disabledSelect">Ciudad</label>
+      <select id="disabledSelect" class="form-control">
+        <option>Culiacan</option>
+		<option>Navolato</option>
+      </select>
+	  </div>
+	  
+   <div class="form-group">
+    <label>Colonia:</label>
+    <input type="text" class="form-control" placeholder="Colonia" name="colonia">
+  </div>
+  
+  <div class="form-group">
+    <label>Calle:</label>
+    <input type="text" class="form-control" placeholder="Calle" name="calle">
+
+  </div>
+  <div class="form-group">
+    <label>Numero:</label>
+    <input type="text" class="form-control" placeholder="Numero" name="num_calle">
+  </div>
+  
+  	<div class="form-group">	
+		<label>Telefono:</label>
+		<input type="text" class="form-control" placeholder="Telefono" name="telefono">
+	</div>
+  <br>
+	
+  <button type="submit" class="btn btn-default">Registar</button>
+ <a href="/users/registroempresa" class="btn btn-default" role="button">Cancelar</a>
+  </div>
+  
+</form>
+        </div>
+		
+
+        
+      </div>
+
+      <footer class="footer">
+        <p>&copy; 2016 Coppel, Inc.</p>
+      </footer>
+
+    </div> <!-- /container -->
+</body>
+</html>
