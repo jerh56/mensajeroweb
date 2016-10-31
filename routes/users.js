@@ -4,6 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../models/user');
+var Empresa = require('../models/empresa');
 
 // Register
 router.get('/register', function(req, res){
@@ -13,6 +14,11 @@ router.get('/register', function(req, res){
 // Login
 router.get('/login', function(req, res){
 	res.render('login');
+});
+
+// registro empresa
+router.get('/registroempresa', function(req, res){
+	res.render('registroempresa');
 });
 
 //Configuracion
@@ -84,9 +90,75 @@ router.post('/register', function(req, res){
 
 		req.flash('success_msg', 'You are registered and can now login');
 
-		res.redirect('/users/login');
+		res.redirect('/login');
 	}
 });
+
+
+// registroempresa
+router.post('/registroempresa', function(req, res){
+	var Nombre_Empresa = req.body.Nombre_Empresa;
+	var Razon_Social = req.body.Razon_Social;
+	var RFC = req.body.RFC;
+	var Email = req.body.Email;
+	var Pais = req.body.Pais;
+	var Estado = req.body.Estado;
+	var Ciudad = req.body.Ciudad;
+	var Colonia = req.body.Colonia;
+	var Calle = req.body.Calle;
+	var Num_calle = req.body.Num_calle;
+	var Telefono = req.body.Telefono;
+	
+	
+
+	// Validation
+	req.checkBody('Nombre_Empresa', 'Nombre_Empresa is required').notEmpty();
+	req.checkBody('Razon_Social', 'Razon_Social is required').notEmpty();
+	req.checkBody('RFC', 'RFC is required').notEmpty();
+	req.checkBody('Email', 'Email is required').notEmpty();
+	req.checkBody('Email', 'Email is not valid').isEmail();	
+	req.checkBody('Pais', 'Pais is required').notEmpty();
+	req.checkBody('Estado', 'Estado is required').notEmpty();
+	req.checkBody('Ciudad', 'Ciudad is required').notEmpty();
+	req.checkBody('Colonia', 'Colonia is required').notEmpty();
+	req.checkBody('Calle', 'Calle is required').notEmpty();
+	req.checkBody('Num_calle', 'Num_calle is required').notEmpty();
+	req.checkBody('Telefono', 'Telefono is required').notEmpty();
+	
+	var errors = req.validationErrors();
+
+	if(errors){
+		res.render('registroempresa',{
+			errors:errors
+		});
+	} else {
+		var newEmpresa = new Empresa({
+		Nombre_Empresa: Nombre_Empresa,
+		Razon_Social: Razon_Social,
+		RFC: RFC,
+		Email: Email,
+		Pais: Pais,
+		Estado: Estado,
+		Ciudad: Ciudad,
+		Colonia: Colonia,
+		Calle: Calle,
+		Num_calle: Num_calle,
+		Telefono: Telefono,
+		});
+
+		Empresa.createEmpresa(newEmpresa, function(err, Empresa){
+			if(err) throw err;
+			console.log(Empresa);
+		});
+
+		req.flash('success_msg', 'Se registro Empresa exitosamente');
+
+		res.redirect('/inicio');
+	}
+
+});
+
+
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -118,16 +190,16 @@ passport.deserializeUser(function(id, done) {
 });
 
 router.post('/login',
-  passport.authenticate('local', {successRedirect:'/', failureRedirect:'/users/login',failureFlash: true}),
+  passport.authenticate('local', {successRedirect:'/inicio', failureRedirect:'/login',failureFlash: true}),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/inicio');
   });
 
 router.get('/logout', function(req, res){
 	req.logout();
 	req.session.destroy();
 	res.clearCookie('connect.sid');
-	res.redirect('/users/login');
+	res.redirect('/login');
 });
 
 module.exports = router;
