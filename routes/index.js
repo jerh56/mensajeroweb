@@ -2,15 +2,22 @@ var express = require('express');
 var router = express.Router();
 
 // Get Homepage
-router.get('/', ensureAuthenticated, function(req, res){
+
+
+router.get('/', function(req,res){
 	res.render('index');
 });
 
-router.get('/users/configuracion', ensureAuthenticated, function(req, res){
+
+router.get('/inicio', ensureAuthenticated, function(req, res){
+	res.render('inicio');
+});
+
+router.get('/configuracion', ensureAuthenticated, function(req, res){
 	res.render('configuracion');
 });
 
-router.get('/users/registroempresa', ensureAuthenticated, function(req, res){
+router.get('/registroempresa', ensureAuthenticated, function(req, res){
 	res.render('registroempresa');
 });
 
@@ -19,7 +26,7 @@ function ensureAuthenticated(req, res, next){
 		return next();
 	} else {
 		req.flash('error_msg','You are not logged in');
-		res.redirect('/users/login');
+		res.redirect('/login');
 	}
 }
 
