@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>LoginApp</title>
+	<title>MensajeroRTC</title>
 	<link rel="stylesheet" href="/css/bootstrap.css" />
 	<link rel="stylesheet" href="/css/style.css" />
 </head>
@@ -10,11 +10,11 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-              <li role="presentation"><a href="/users/login">Login</a></li>
-              <li role="presentation"><a href="/users/register">Register</a></li>
+              <li role="presentation"><a href="/">Inicio</a></li>
+              <li role="presentation"><a href="/register">Nuevo Usuario</a></li>
           </ul>
         </nav>
-        <h3 class="text-muted">LoginApp</h3>
+        <h3 class="text-muted">MensajeroRTC</h3>
       </div>
 
 
@@ -23,17 +23,17 @@
 
 
           
-          <h2 class="page-header">Account Login</h2>
-<form method="post" action="/users/login">
+          <h2 class="page-header">Inicia Sesion</h2>
+<form method="post" action="/login">
   <div class="form-group">
-    <label>Username</label>
-    <input type="text" class="form-control" name="username" placeholder="Username">
+    <label>Numero de Empleado</label>
+    <input type="text" class="form-control" name="username" placeholder="Numero de Empleado">
   </div>
   <div class="form-group">
     <label>Password</label>
-    <input type="password" class="form-control" name="password" placeholder="Password">
+    <input type="password" class="form-control" name="password" placeholder="Contraseña">
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-default">Iniciar Sesion</button>
 </form>
         </div>
 
