@@ -1,77 +1,60 @@
+
 #msjuser   {color:blue;}
 
 body, html {
-  background: #fff;
+  background: #f3f3f3;
   margin: 0px;
   padding: 0px;
   
   }
 .contenedor {
-  width: 100%;
-  border: 5px solid #3983c2;
-
+  width: 99%;
+  margin: auto;
+  background: #f3f3f3;
   
-  
-}
-.header {
-width: 100%;
-height: 80px;
-background:#E6E6E6;
-margin-top:0;
 }
 
-.header .izq {
-background:#A4A4A4;
-width:40%;
-height:80px;
-float: left;
-}
-
-label {
-font-size: 18px;
-}
-
-.header .der {
-background: #BDBDBD;
-width: 60%;
-height: 80px;
-float: right;
-}
-
-.izq p .izquierda{
-float: left;
-}
-
-.derecha {
-
-}
-
-.informacion {
+.info_conec{
 width: 98%;
 height: 100px;
 overflow: hidden;
-background: #fff;
+background: #f3f3f3;
 margin: auto;
 margin-top:10px;
 
 }
-.informacion .info1 {
+.info_conec .datos {
 width: 49.5%;
 height: 100px;
-padding: 10px 0 10px 20px;
 background: #f3f3f3;
-border: 2px solid #ccc;
 float: left;
 
-
 }
-.informacion .info2 {
+.datos .info_user{
+  width: 98%;
+  height: 90px;
+  background:#D8D8D8 ;
+  float: left;
+  padding: 10px;
+  border: 1px solid #BDBDBD;
+  line-height: .8em;
+}
+
+.info_agent{
+  width: 46%;
+  background:#fff;
+  float: right;
+  height: 90px;
+  padding: 10px;
+
+  
+}
+.info_conec .estatus {
 width: 49.5%;
 height: 100px;
-padding: 10px 0 10px 20px;
-background: #f3f3f3;
-border: 2px solid #ccc;
+background: #D8D8D8;
 float: right;
+border: 1px solid #BDBDBD;
 
 }
 
@@ -79,12 +62,13 @@ float: right;
 #box_conversation {
   margin: 10px auto;
   padding:10px;
-  width: 98%;
-  height: 350px; 
+  width: 70%;
+  height: 495px; 
   overflow-x: hidden;
   overflow-y: scroll;
   border: 1px solid;
   border-color: #ccc;
+  background: #fff;
  
 }
 
@@ -115,7 +99,7 @@ float: right;
   .tabs label {
     display: block;
     padding: 10px 20px;
-    border-radius: 2px 2px 0 0;
+    border-radius: 1px 1px 0 0;
     color: #08C;
     font-size: 24px;
     font-weight: normal;
@@ -171,20 +155,22 @@ float: right;
 
 .triangle-isosceles {
   position: relative;
-  size: 20px;
+  display: table;
+  size: 22px;
   padding: 15px;
   margin: 10px 0 20px;
   color: #000;
   background: #6fb3e0;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
   border-radius: 10px;
   word-break: break-all;
   hyphens: auto;
-  width: auto;
+  
   -webkit-box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
--moz-box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
-box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
+   -moz-box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
+     box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
+
 
 }
 
@@ -192,22 +178,26 @@ box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
     content: "";
     position: absolute;
     bottom: -15px;
-    left: 50px;
+    left: 20px;
     border-width: 15px 15px 0;
     border-style: solid;
     border-color: #6fb3e0 transparent;
     display: block;
     width: 0;
+
   }
 
 
-.triangle-isosceles.top {
+ .triangle-isosceles.top {
   background: #2b7dbc;
+  
+
+  
 }
 
   .triangle-isosceles.top:after {
     top: -15px;
-    right: 50px;
+    right: 20px;
     bottom: auto;
     left: auto;
     border-width: 0 15px 15px;
@@ -215,52 +205,33 @@ box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
   }
 
 #caja-mensaje {
-  width: 98%;
-  margin: 10px auto;
+  width: 70%;
+  margin: auto;
   height:100px;
-  border: 2px solid #ccc;
+
 
 }
-#caja-mensaje .estatus {
-width: 30%;
-height: 80px;
-padding: 10px;
-text-align: center;
-background: #f3f3f3;
-border: 2px solid #ccc;
-float: right;
-margin:10px 10px;
-font-size: 16px;
 
-}
   #caja-mensaje input{
   border: solid 1px #4193BF;
   outline: none;
   padding: 10px;
-  margin: 30px 10px 20px 20px;
-  width: 600px;
-  height: 35px;
+  width: 80%;
+  height: 20px;
+  margin: 20px 15px 0 20px;
+  border: 1px solid #ccc;
   }
 
   #caja-mensaje button {
-   background: #D8D8D8;
-    padding: 0px 15px;
-    font-size: 20px;
-    color: #000;
-    border: none;
-    margin: 0 5px;
-    border-radius: 3px;
-    box-shadow: 0 3px 0 #A4A4A4;
-    cursor: pointer;
-    height: 35px;
-
-    -webkit-transition: background .2s ease;
-    -moz-transition: background .2s ease;
-    -o-transition: background .2s ease; 
+  background: #438eb9;
+  font-size: 18px;
+  color: #000;
+  margin-top: 15px;
+  cursor: pointer;
+  height: 35px;
+  width: 100px;
+ 
   }
-    #caja-mensaje button:hover {
-      background: #A4A4A4;
-     }
 
 .co_chat {
   padding: 10px;
