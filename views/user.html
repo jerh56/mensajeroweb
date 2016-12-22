@@ -255,7 +255,7 @@
 	<link href=" /css/bootstrap.min.css" rel="stylesheet" />
 		<link href=" /css/bootstrap-responsive.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href=" /css/font-awesome.min.css" />
-		<link rel="stylesheet" href=" /css/estilos.css" />
+		
 		
 		
 		<!--page specific plugin styles-->
@@ -424,17 +424,23 @@
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
 	<div class="contenedor">
-		<div class="informacion">
-			<div class="info1">
-			<label>Asuario:</label>
-			<label>Numero:</label>
-			<label>Fecha:</label>
+		<div class="info_conec">
+			<div class="datos">
+				<div class="info_user">
+					<p><b>Usuario:</b> Alonso</p>
+					<p><b>No. Empleado:</b> 97558214</p>
+					<p><b>Fecha:</b> 19/12/2016</p>
+				</div>
+				
 			</div>
-			<div class="info2">
+
+			<div class="estatus">
+			<b>Atiende:</b>
+			<br>
+				Estatus:
+				<br>
+				Tiempo de Atencion:
 			
-			<label>Agente:</label>
-			<label>Numero:</label>
-			<label>Fecha:</label>
 			</div>
 			
 		
@@ -442,7 +448,7 @@
 		</div>
 		<div id ="box_conversation" class="co_chat">
 
-			<p id="msj_type"></p>
+			
 			<div id="conversation">
 				
 			</div>
@@ -453,13 +459,10 @@
 		<div id="caja-mensaje">
 		
 			<input type="text" id="data" placeholder="Escribir mensaje..." required>
-			<button class="btn disabled btn-primar" id="datasend">enviar</button>
+			<button type="button" class="btn btn-sm btn-info" id="datasend">Enviar</button>
 			
-			<div class="estatus">
-			estatus:<br>
-			tiempo de espera:
 			
-			</div>
+			
 		</div>
 		<div id="inferior"></div>
 				
