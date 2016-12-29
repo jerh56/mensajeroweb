@@ -310,7 +310,9 @@
 				// listener, whenever the server emits 'updatechat', this updates the chat body
 				socket.on('updatechat', function (username, data) {
 					if (username === localusername){
-					   $('#conversation').append('<p class="triangle-isosceles"> <b>' + username + ':</b> ' + data + '</p>');
+					   $('#box_conversation').append(' <p class="triangle-isosceles"> <b>' + username + ':</b><br> ' + data + '</p> ');
+					   
+
 
 					   //var tam = parseInt(username.length+data.length)-4;
 					   //console.log("a"+tam);
@@ -320,11 +322,12 @@
 					   //$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
 				    }
 				    else{
-				    	$('#conversation').append('<p class="triangle-isosceles top"> <b>' + '>>' + username + ':</b> ' + data + '</p>');
+				    	$('#box_conversation').append(' <p class="mensaje "> <b>'  + username + ':</b><br> ' + data + ' </p> ' );
+
 				    	//$('#conversation').append('<b id="msjuser">'+ '>>' + username + ':</b> ' + data + '<br>');
 				    } 
 					//Getting the element's new height now
-				    var sHeight = $('#conversation')[0].scrollHeight;
+				    var sHeight = $('#box_conversation')[0].scrollHeight;
 				    //Scrolling the element to the sHeight
 				    $('#box_conversation').scrollTop(sHeight);
 				    console.log(sHeight);
@@ -426,24 +429,25 @@
 	<div class="contenedor">
 		<div class="info_conec">
 			<div class="datos">
-				<div class="info_user">
-					<p><b>Usuario:</b> <%= username %></p>
+				
+					<p><b>Usuario:</b> Alonso</p>
 					<p><b>No. Empleado:</b> 97558214</p>
 					<p><b>Fecha:</b> 
 							<script>
 								var f = new Date();
 								document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 							</script>
+							
 					</p>
-				</div>
+				
 				
 			</div>
 
 			<div class="estatus">
-			<b>Atiende:</b>
+			<b>Atiende:</b> Carlos Alberto
 			<br>
 				Estatus:
-				<br>3
+				<br>
 				Tiempo de Atencion:
 			
 			</div>
@@ -452,7 +456,6 @@
 
 		</div>
 		<div id ="box_conversation" class="co_chat" style="display: block;">
-
 		</div>
 
 

@@ -17,23 +17,46 @@ body, html {
           margin: 0;
           -webkit-font-smoothing: antialiased;
           font-weight: 100;
-          background: #fff;
+          background: #f3f3f3;
          
           font-family: helvetica;
       }
 .contenedor {
   width: 100%;
   height: auto;
-  border: 1px solid #000;
+  border: 1px solid #ccc;
+}
+.informacion{
+  width:99%;
+  height:100px;
+  margin-bottom: 5px; 
+  
+}
+.informacion .info-user{
+width: 48%;
+  height: 100px;
+  background:#f3f3f3 ;
+  float: left;
+  
+  border: 1px solid #BDBDBD;
+  line-height: .8em;
+}
+.informacion .info-agente{
+width: 49.5%;
+height: 100px;
+background: #f3f3f3;
+float: right;
+border: 1px solid #BDBDBD;
+
 }
       .tipificaciones {
-        width: 98%;
+        width: 97%;
         height: 150px;
         background: #f3f3f3;
         padding: 15px 15px 15px 15px;
         margin-top: 10px;
         margin-right: 10px; 
-        border: 2px solid #ccc;
+        border: 1px solid #ccc;
       }
       .tipificaciones select{
         width: 300px;
@@ -117,8 +140,8 @@ body, html {
         line-height: 140%;
         padding-top: 10px;
         background: #fff;
-        border: 2px solid #ccc;
-        padding: 15px;
+        border: 1px solid #ccc;
+        padding: 5px;
         color: white;
         position: absolute;
         top: 0px;
@@ -132,19 +155,20 @@ body, html {
       .box_conversation {
         float:left;
         width:98%;
-        height:500px;
+        height:400px;
         overflow:auto;
         padding:10px;
         background: #fff;
-        border: 2px solid #ccc;
+        border: 1px solid #ccc;
       }
       
 
     .triangle-isosceles {
       position: relative;
-      size: 20px;
+      display: table;
+      font-size: 14px;
       padding: 15px;
-      margin: 10px 0 20px;
+      margin: 10px 0 30px;
       color: #000;
       background: #6fb3e0;
       -webkit-border-radius: 10px;
@@ -172,14 +196,17 @@ body, html {
 
 
    .triangle-isosceles.top {
-      background: #2b7dbc;
+      background: #87b87f;
+     
+     
    }
 
     .triangle-isosceles.top:after {
       top: -15px;
-    right: 50px;
+    right: 20px;
     bottom: auto;
     left: auto;
     border-width: 0 15px 15px;
-    border-color: #2b7dbc transparent;
+    border-color: #87b87f transparent;
     }
+  }
