@@ -15,40 +15,27 @@ body, html {
 }
 
 .info_conec{
-width: 98%;
+width: 100%;
 height: 100px;
 overflow: hidden;
 background: #f3f3f3;
 margin: auto;
 margin-top:10px;
 
+
+
 }
 .info_conec .datos {
-width: 49.5%;
+width: 48%;
 height: 100px;
-background: #f3f3f3;
+background: #D8D8D8;
+padding: 10px;
 float: left;
+line-height: .8em;
+ border: 1px solid #BDBDBD;
 
 }
-.datos .info_user{
-  width: 98%;
-  height: 90px;
-  background:#D8D8D8 ;
-  float: left;
-  padding: 10px;
-  border: 1px solid #BDBDBD;
-  line-height: .8em;
-}
 
-.info_agent{
-  width: 46%;
-  background:#fff;
-  float: right;
-  height: 90px;
-  padding: 10px;
-
-  
-}
 .info_conec .estatus {
 width: 49.5%;
 height: 100px;
@@ -243,27 +230,36 @@ border: 1px solid #BDBDBD;
 
 
 
-@media screen and (max-height: 600px) {
-
-
-  #box_conversation {
-    height: 300px;
-  }
-
-}
-@media screen and (max-width: 750px) {
-
-  #caja-mensaje input {
-    width: 300px;
-  }
-  #caja-mensaje {
+@media screen and (max-height: 600px){ #box_conversation {height: 300px;}}
+@media screen and (max-width: 600px){ 
+  .triangle-isosceles {
+    font-size: 12px;
     padding: 10px;
   }
-
-
-  #box_conversation {
-    width: 100%;
+  .triangle-isosceles .top {
+    font-size: 12px;
+    padding: 10px;
   }
-
 }
+
+@media screen and (max-width: 600px){ 
+  #caja-mensaje {
+    width: 99%;
+  }
+  #caja-mensaje input {
+    width: 70%;
+    height: 15px;
+    margin: 15px 5px 0 5px; 
+  }
+  #caja-mensaje button {
+    width: 80px;
+  }
+  
+}
+@media screen and (max-width: 600px){ 
+  #box_conversation {
+    width: 97%;
+  }
+}
+
 
