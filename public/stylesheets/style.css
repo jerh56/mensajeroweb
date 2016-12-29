@@ -23,19 +23,17 @@ background: #f3f3f3;
 margin: auto;
 margin-top:10px;
 
-
-
 }
 .info_conec .datos {
 width: 48%;
-height: 100px;
-background: #D8D8D8;
-padding: 10px;
-float: left;
-line-height: .8em;
- border: 1px solid #BDBDBD;
+  height: 100px;
+  background:#D8D8D8 ;
+  float: left;
+  border: 1px solid #BDBDBD;
+  line-height: .8em;
 
 }
+
 
 .info_conec .estatus {
 width: 49%;
@@ -57,8 +55,11 @@ border: 1px solid #BDBDBD;
   border: 1px solid;
   border-color: #ccc;
   background: #fff;
-  
+ 
 }
+
+
+
 
 .grupo {
   margin-left: 50px;
@@ -121,7 +122,7 @@ border: 1px solid #BDBDBD;
       }
       .tab-content{
         z-index: 2;
-        display: none;
+        display: block;
         text-align: left;
         width: 100%;
         font-size: 20px;
@@ -141,22 +142,22 @@ border: 1px solid #BDBDBD;
       }
 
 .triangle-isosceles {
-  clear: both;
+ clear: both;
     float: left;
     margin-bottom: 10px;
     background: #ccc;
     word-wrap: break-word;
     max-width: 95%;
     border-radius: 5px;
-    padding: 10px
-  
-  -webkit-box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
-   -moz-box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
-     box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
-
+    padding: 10px;
+     
 
 }
-.mensaje {
+
+  
+
+
+ .mensaje {
   background: #87b87f;
   clear: both;
    float: right;
@@ -167,6 +168,8 @@ border: 1px solid #BDBDBD;
   max-width: 95%;
  }
 
+
+  
 
 
 #caja-mensaje {
@@ -239,5 +242,4 @@ border: 1px solid #BDBDBD;
     width: 97%;
   }
 }
-
 
