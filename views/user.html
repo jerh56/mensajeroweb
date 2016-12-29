@@ -427,9 +427,14 @@
 		<div class="info_conec">
 			<div class="datos">
 				<div class="info_user">
-					<p><b>Usuario:</b> Alonso</p>
+					<p><b>Usuario:</b> '<%= username %>'</p>
 					<p><b>No. Empleado:</b> 97558214</p>
-					<p><b>Fecha:</b> 19/12/2016</p>
+					<p><b>Fecha:</b> 
+							<script>
+								var f = new Date();
+								document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
+							</script>
+					</p>
 				</div>
 				
 			</div>
