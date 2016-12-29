@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
-
-var MsglistSchema = mongoose.Schema({
-	
+var userSchema = mongoose.Schema({
     username: String,
     userid: String,
     posroom: String,
@@ -11,4 +9,4 @@ var MsglistSchema = mongoose.Schema({
     date_msg: {type:Date}
 });
 
-module.exports = mongoose.model('Msglist', MsglistSchema);
+module.exports = mongoose.model('msglist', userSchema);

@@ -9,6 +9,7 @@ var WaitList = require('../models/waitlist.js');
 var Msglist = require('../models/msglist.js');
 
 
+
 // usernames which are currently connected to the chat
 //var usernames = new Array();
 //var WaitList = new Array();

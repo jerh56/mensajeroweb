@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="app">
+<html lang="es" >
 	<head>
-
+	
 	  	<link rel="stylesheet" type="text/css" href="../css/chat_agente.css">
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
@@ -33,10 +33,12 @@
 			       $('#tab-' + idroom).text(  strTab.slice(0, strTab.lastIndexOf("esta escribiendo")-1)); // quita el mensaje de que el usuario esta escribiendo   
 			    } 
 				if (username === agentname){
-				   $('#conversation' + idroom).append('<p class="triangle-isosceles"> <b>'+username + ':</b> ' + data + '</p>');
+				   $('#conversation' + idroom).append('<p class="triangle-isosceles"> <b>'+ username + ': </b> ' + data + '</p>');
+				   $('#conversation').append('<br>');
 		      	}
 			    else{
-			    	$('#conversation' + idroom).append('<p class="triangle-isosceles top"> <b>'+ '>>' + username + ':</b> ' + data + '</p>');
+			    	$('#conversation' + idroom).append('<p class="triangle-isosceles top" > <b>'+ '>>' + username + ':</b> ' + data + '</p>');
+			    	$('#conversation').append('<br>');
 		        
 				} 
 				//Getting the element's new height now
@@ -70,7 +72,7 @@
 				document.body.appendChild(script);
 				console.log(username);
 				console.log(idroom);
-				$('#divbody').hide();
+				$('#divbody').hidde();
 			
 			});
 			// listener, whenever the server emits 'updaterooms', this updates the room the client is in
@@ -132,13 +134,10 @@
 			</div-->
 		<!--/div-->
 		<ul id="tabsmsj" class="tabs">
-
+				<script type="text/javascript" src="js/angular.js"></script>
+				<script type="text/javascript" src="js/ubigeo.js"></script>
 		</ul>
 
 
-
-
-
 	</body>
-			<div id="footer">Hola</div>
 </html>
