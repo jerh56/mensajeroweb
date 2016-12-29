@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" ng-app="app">
 	<head>
+
 	  	<link rel="stylesheet" type="text/css" href="../css/chat_agente.css">
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
@@ -69,7 +70,7 @@
 				document.body.appendChild(script);
 				console.log(username);
 				console.log(idroom);
-				$('#divbody').hidde();
+				$('#divbody').hide();
 			
 			});
 			// listener, whenever the server emits 'updaterooms', this updates the room the client is in
@@ -131,10 +132,13 @@
 			</div-->
 		<!--/div-->
 		<ul id="tabsmsj" class="tabs">
-				<script type="text/javascript" src="js/angular.js"></script>
-				<script type="text/javascript" src="js/ubigeo.js"></script>
+
 		</ul>
 
 
+
+
+
 	</body>
+			<div id="footer">Hola</div>
 </html>
