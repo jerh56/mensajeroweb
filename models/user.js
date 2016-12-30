@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
 	Ap_Paterno:		String,
 	Ap_Materno:		String,
 	Puesto:			String,
-	No_Empelado:	String,
+	No_empleado:	String,
 	username:		String,
 	password:		String,
 	email:			String,

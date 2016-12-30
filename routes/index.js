@@ -9,6 +9,7 @@ var Empresa = require('../models/empresa.js');
 var Departamento = require('../models/departamento.js');
 var ubigeo = require('../controllers/ubigeo');
 var dialogo = require('../controllers/lista_mensaje');
+var Descripcion = require('../models/descripcion.js');
 
 
 //ejemplo listas desplegables lista_mensaje
@@ -48,17 +49,18 @@ router.get('/', function(req, res) {
   res.render('index');
 });
 
-	router.get('/user', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res) {
-	  //res.sendFile(__dirname + '/indexUser.html');
-	  console.log(req.user.username);
-	  res.render('user', { username: req.user.username});
-	});
-	
-	
+  router.get('/user', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res) {
+    //res.sendFile(__dirname + '/indexUser.html');
+    console.log(req.user.username);
+    console.log(req.user.No_empleado);
+    res.render('user', { username: req.user.username, numeroempleado: req.user.No_empleado});
+  });
+  
+  
   router.get('/agent', require('connect-ensure-login').ensureLoggedIn('/ag_login'), function (req, res) {
     //res.sendFile(__dirname + '/indexUser.html');
     console.log(req.user.username);
-    res.render('agent', { agentname: req.user.username});
+    res.render('agent', {agentname: req.user.username});
   });
 
 // PASSPORT
@@ -80,31 +82,54 @@ router.get('/', function(req, res) {
     res.render('ag_login', {message: msjres[0]});
   });
 
-		//REGISTRO USUARIOS
-	router.get('/registro', function(req, res) {
-	// Display the Login page with any flash message, if any
-	res.render('registro', {message: req.flash('message')});
-	});
-	
-		//REGISTRO AGENTES
-	router.get('/ag_registro', function(req, res) {
-	// Display the Login page with any flash message, if any
-	res.render('ag_registro', {message: req.flash('message')});
-	});
+    //REGISTRO USUARIOS
+  router.get('/registro', function(req, res) {
+  // Display the Login page with any flash message, if any
+  res.render('registro', {message: req.flash('message')});
+  });
+  
+    //REGISTRO AGENTES
+  router.get('/ag_registro', function(req, res) {
+  // Display the Login page with any flash message, if any
+  res.render('ag_registro', {message: req.flash('message')});
+  });
 
-	//ENSURELOGGED USSERS
+  //ENSURELOGGED USSERS
  router.get('/principal',
- 	require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
+  require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
 
           res.render('principal', {message: req.flash('message'), user: req.user});
  });
 
   //ENSURELOGGED USSERS
- router.get('/usuario',
-  require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
+ router.get('/usuario', require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
 
           res.render('usuario', {message: req.flash('message'), user: req.user});
  });
+
+ router.post('/user', function(req, res){
+
+
+        var newDescripcion = new Descripcion();
+
+          newDescripcion.coddep = req.body.coddep;
+          newDescripcion.descripcion = req.body.descripcion;
+
+
+      newDescripcion.save(function(err) {
+        if (err){
+          console.log('No se pudo hacer registro de la descripcion de el problema: '+err);
+          res.render('error', {message: 'No se pudo hacer registro de la descripcion de el problema: '+err});
+          }
+          else{
+            console.log('se guardo descripcion');
+            res.render('user', {username: req.user.username, numeroempleado: req.user.No_empleado});
+            
+          }
+        });
+
+ });
+
 
  router.get('/agente',
   require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
@@ -127,10 +152,10 @@ require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
 
   
  
-	//ENSURELOGGED AGENT
+  //ENSURELOGGED AGENT
   router.get('/ag_principal',
- 	require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
- 		console.log(req.user);
+  require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
+    console.log(req.user);
           res.render('ag_principal', {message: req.flash('message'), user: req.user});
  });
 
@@ -150,7 +175,7 @@ router.get('/agente',
         var msjres = req.flash('message');
         
         //res.send(JSON.stringify({ error: 0, message: msjres[0]}));
-		res.render('principal', {message: msjres[0], user: req.user});
+    res.render('principal', {message: msjres[0], user: req.user});
 
   });
   
@@ -161,7 +186,7 @@ router.get('/agente',
         var msjres = req.flash('message');
         
         //res.send(JSON.stringify({ error: 0, message: msjres[0]}));
-		res.render('ag_principal', {message: msjres[0], user: req.user});
+    res.render('ag_principal', {message: msjres[0], user: req.user});
 
   });
 
@@ -173,7 +198,7 @@ router.get('/agente',
          //console.log(msjres[0]);
          //res.setHeader('Content-Type', 'application/json');
          //res.send(JSON.stringify({ error: 1, message: msjres[0]}));
-    	res.render('signup_error', {message: msjres[0], user: req.user});
+      res.render('signup_error', {message: msjres[0], user: req.user});
     // }
     // else {
     //      res.redirect('/');
@@ -188,7 +213,7 @@ router.get('/agente',
          //res.setHeader('Content-Type', 'application/json');
          //res.send(JSON.stringify({ error: 1, message: msjres[0]}));
         console.log(req.flash('failure'));
-    	res.render('ag_signup_error', {message: msjres[0], user: req.user});
+      res.render('ag_signup_error', {message: msjres[0], user: req.user});
     // }
     // else {
     //      res.redirect('/');
@@ -534,7 +559,7 @@ router.post('/departamento', function(req, res){
 //SELECCION DE DEPARTAMENTO Y DESCRIPCION DE INCIDENCIA
 // SOCKET.IO
 /* router.get('/chat',
- 	require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
+  require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
 
     console.log(req.Departamento);
           res.render('chat', {message: req.flash('message'), departamento: req.Departamento});
@@ -562,7 +587,7 @@ router.post('/departamento', function(req, res){
 
 // PASSPORT AGENTESF
   router.post('/ag_signin', passport.authenticate('ag_login', {
-    successRedirect: '/agente',
+    successRedirect: '/agent',
     failureRedirect: '/ag_login',
     failureFlash : true,
     successFlash : true 
@@ -580,10 +605,10 @@ router.post('/departamento', function(req, res){
 
 //LOGOUT
 router.get('/logout', function(req, res){
-	req.logout();
-	req.session.destroy();
-	res.clearCookie('connect.sid');
-	res.redirect('/');
+  req.logout();
+  req.session.destroy();
+  res.clearCookie('connect.sid');
+  res.redirect('/');
 });
 
 //AGENTE LOGOUT
