@@ -1,124 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" ng-app="app">
 <title>MensajeroRTC - HelpDesk</title>
-	<head>
-		<meta charset="utf-8">
-		<meta content="IE=edge" http-equiv="X-UA-Compatible">
-		<meta content="width=device-width, initial-scale=1.0" name="viewport">
-		<meta content="overview &amp; stats" name="description"/>
-		<meta content="" name="author">
-		<link href=" /css/bootstrap.min.css" rel="stylesheet" />
-		<link href=" /css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href=" /css/font-awesome.min.css" />
-		<link rel="stylesheet" href=" /css/estilos.css" />
-		<link rel="stylesheet" href=" /css/ace-fonts.css" />
-		<link rel="stylesheet" href=" /css/ace.min.css" />
-		<link rel="stylesheet" href=" /css/ace-responsive.min.css" />
-		<link rel="stylesheet" href=" /css/ace-skins.min.css" />
-		<script src=" /js/ace-extra.min.js"></script>
-	</head>
+    <head>
+        <meta charset="utf-8">
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="overview &amp; stats" name="description"/>
+        <meta content="" name="author">
+        <link href=" /css/bootstrap.min.css" rel="stylesheet" />
+        <link href=" /css/bootstrap-responsive.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href=" /css/font-awesome.min.css" />
+        <link rel="stylesheet" href=" /css/estilos.css" />
+        <link rel="stylesheet" href=" /css/ace-fonts.css" />
+        <link rel="stylesheet" href=" /css/ace.min.css" />
+        <link rel="stylesheet" href=" /css/ace-responsive.min.css" />
+        <link rel="stylesheet" href=" /css/ace-skins.min.css" />
+        <script src=" /js/ace-extra.min.js"></script>
+    </head>
 
-	<body>
-		<div class="navbar" id="navbar">
-			<script type="text/javascript">
-				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-			</script>
+    <body  ng-controller="TipificacionCtrl">
+        <div class="navbar" id="navbar">
+            <script type="text/javascript">
+                try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+            </script>
 
-			<div class="navbar-inner">
-				<div class="container-fluid">
-					<a href="#" class="brand">
-						<small>
-							<i class="icon-leaf"></i>
-							Help - Desk
-						</small>
-					</a><!--/.brand-->
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a href="#" class="brand">
+                        <small>
+                            <i class="icon-leaf"></i>
+                            Help - Desk
+                        </small>
+                    </a><!--/.brand-->
 
-					<ul class="nav ace-nav pull-right">
-
-
-						<li class="light-blue">
-							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								
-								<span class="user-info">
-									<small>Bienvenido</small>
-								<small><%= user.username %></small>
-								</span>
-
-								<i class="icon-caret-down"></i>
-							</a>
-
-							<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
-								<li>
-									<a href="/">
-										<i class="icon-home "></i>
-										Inicio
-									</a>
-								</li>
-								<li>
-									<a href="/registro">
-										<i class="icon-user"></i>
-										Registro
-									</a>
-								</li>
+                    <ul class="nav ace-nav pull-right">
 
 
-								<li class="divider"></li>
+                        <li class="light-blue">
+                            <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                                
+                                <span class="user-info">
+                                    <small>Bienvenido</small>
+                                <small><%= user.username %></small>
+                                </span>
 
-								<li>
-									<a href="/logout">
-										<i class="icon-off"></i>
-										Logout
-									</a>
-								</li>
-							</ul>
-						</li>
-					</ul><!--/.ace-nav-->
-				</div><!--/.container-fluid-->
-			</div><!--/.navbar-inner-->
-		</div>
+                                <i class="icon-caret-down"></i>
+                            </a>
 
-		<div class="main-container container-fluid">
+                            <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
+                                <li>
+                                    <a href="/">
+                                        <i class="icon-home "></i>
+                                        Inicio
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/registro">
+                                        <i class="icon-user"></i>
+                                        Registro
+                                    </a>
+                                </li>
 
-		<div class="page-content">
-					<div class="page-header position-relative">
-						<h1>Seleccion Departamento</h1>
-					</div>
 
-					<form method="post" class="form-horizontal" action="/departamento">
+                                <li class="divider"></li>
 
-					</div>
-						<div class="center">
-							<div class="controls">
-								<div class="row-fluid">
-                                                        <label for="form-field-select-1">Departemaneto</label>
+                                <li>
+                                    <a href="/logout">
+                                        <i class="icon-off"></i>
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul><!--/.ace-nav-->
+                </div><!--/.container-fluid-->
+            </div><!--/.navbar-inner-->
+        </div>
 
-                                                        <select id="form-field-select-1">
-                                                            <option value="">&nbsp;</option>
-                                                            <option value="AL">Ropa</option>
-                                                            <option value="AL">Muebles</option>
-                                                            <option value="AL">Caja</option>
-                                                            <option value="AL">Banco</option>
-                                                            <option value="AL">Bodega</option>
-                                                        </select>
-							    </div>
-								<br><br><br><br><br>
-							<div class="row-fluid" >
-									<label for="form-field-8">Descripcion del Problema</label>
-									<textarea name="Descripcion" class="span12"  placeholder="Descripcion del Problema" style="margin: 0px; height: 77px; width: 355px;"> </textarea>
-							</div>
-							<div class="form-actions">
-									<button class="btn btn-info" type="submit" >
-										<i class="icon-ok bigger-110"></i>
-										Continuar
-									</button>									
+        <div class="main-container container-fluid">
 
-								</div>
-								
-						</div>
-						</form>
-		</div>
-	</body>
-	        <!--basic scripts-->
+        <div class="page-content">
+                    <div class="page-header position-relative">
+                        <h1>Seleccion Departamento</h1>
+                    </div>
+
+                    <form method="post" class="form-horizontal" action="/user">
+
+                    </div>
+                        <div class="center">
+                            <div class="controls">
+
+                                <fieldset>
+                                <select ng-model="dpto" ng-change="cargarTipi()" ng-options="d.coddep as d.desdep for d in dptos"></select>
+                                </fieldset>
+
+                                <input style="display:none" ng-model="dpto" name="coddep" ng-options="d.coddep as d.desdep for d in dptos"></input>
+
+                            </div>
+                                <br>
+                            <div class="row-fluid" >
+                                    <label for="form-field-8">Descripcion del Problema</label>
+                                    <input name="descripcion" placeholder="Descripcion del Problema" required></input>
+                            </div>
+                            <div class="form-actions">
+                                    <button class="btn btn-info" type="submit" >
+                                        <i class="icon-ok bigger-110"></i>
+                                        Continuar
+                                    </button>                                   
+
+                                </div>
+                                
+                        </div>
+                        </form>
+        </div>
+    <script type="text/javascript" src="js/angular.js"></script>
+    <script type="text/javascript" src="js/ubigeo.js"></script>
+    </body>
+            <!--basic scripts-->
 
         <!--[if !IE]>-->
 
