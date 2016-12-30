@@ -232,7 +232,8 @@ io.sockets.on('connection', function (socket){
         socket.emit('updatechat', 'MENSAJERO RTC', 'Bienvenido: ' + agentname, idroom);
         // echo to room 1 that a person has connected to their room:
         //socket.broadcast.to(idroom).emit('updatechat', 'MENSAJERO RTC', 'Sala: ' + idroom, idroom);
-        io.sockets.in(idroom).emit('updatechat', 'MENSAJERO RTC', 'Se conecto el usuario ' + username , idroom);
+        io.sockets.in(idroom).emit('updateagentchat', 'MENSAJERO RTC', 'Se conecto el usuario ' + username , idroom);
+        socket.emit('updatechat', 'MENSAJERO RTC', 'Se conecto el usuario: '+ username , idroom);
         socket.emit('updaterooms', agentnames, idroom);
         console.log('Se conecto el agente: ' + agentname);
       }
