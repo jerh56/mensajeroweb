@@ -27,6 +27,47 @@
 			}
 		}
 		</script>
+
+		<script type="text/javascript">
+				//setInterval
+				var cronometro;
+
+				function detenerse()
+				{
+					clearInterval(cronometro);
+				}
+
+				function carga()
+				{
+					contador_s =0;
+					contador_m =0;
+					s = document.getElementById("segundos");
+					m = document.getElementById("minutos");
+
+					cronometro = setInterval(
+						function(){
+							if(contador_s==60)
+							{
+								contador_s=0;
+								contador_m++;
+								m.innerHTML = contador_m;
+
+								if(contador_m==60)
+								{
+									contador_m=0;
+								}
+							}
+
+							s.innerHTML = contador_s;
+							contador_s++;
+
+						}
+						,1000);
+
+				}
+
+		</script>
+
 		<script src=" /js/bootstrap.min.js"></script>
 
 		<!--page specific plugin scripts-->
@@ -369,7 +410,7 @@
 	<!-- para el chat -->
 
 	</head>
-	<body>
+	<body onload="carga()">
 		<div class="navbar" id="navbar">
 			<script type="text/javascript">
 				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
@@ -392,6 +433,7 @@
 								
 								<span class="user-info">
 									<small>Bienvenido</small>
+									<small><%= username %></small>
 								<small></small>
 								</span>
 
@@ -416,9 +458,9 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="/login">
+									<a href="/logout">
 										<i class="icon-off"></i>
-										Login
+										Logout
 									</a>
 								</li>
 							</ul>
@@ -429,26 +471,30 @@
 	<div class="contenedor">
 		<div class="info_conec">
 			<div class="datos">
-				
-					<p><b>Usuario:</b> Alonso</p>
-					<p><b>No. Empleado:</b> 97558214</p>
+				<div class="info_user">
+					<p><b>Usuario:</b> <%= username %></p>
+					<p><b>No. Empleado:</b> <%= numeroempleado %>
+
 					<p><b>Fecha:</b> 
 							<script>
 								var f = new Date();
 								document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
 							</script>
-							
 					</p>
-				
+				</div>
 				
 			</div>
 
 			<div class="estatus">
-			<b>Atiende:</b> Carlos Alberto
+			<b>Atiende:</b> 
 			<br>
-				Estatus:
+				
 				<br>
-				Tiempo de Atencion:
+			<b>Tiempo de Atencion: </b><span id="minutos">0</span>:<span id="segundos">0</span>
+			</b>
+
+
+
 			
 			</div>
 			

@@ -383,6 +383,7 @@ passport.use('signup', new LocalStrategy({
 			newUser.Puesto = req.body.Puesto;
 			newUser.password = createHash(password);
 			newUser.email = req.body.email;
+      newUser.No_empleado = req.body.No_empleado;
 			newUser.Pais = req.body.Pais;
 			newUser.Estado = req.body.Estado;
 			newUser.Ciudad = req.body.Ciudad;
