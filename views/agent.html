@@ -33,12 +33,12 @@
 			       $('#tab-' + idroom).text(  strTab.slice(0, strTab.lastIndexOf("esta escribiendo")-1)); // quita el mensaje de que el usuario esta escribiendo   
 			    } 
 				if (username === agentname){
-				   $('#conversation' + idroom).append('<p class="triangle-isosceles"> <b>'+ username + ': </b> ' + data + '</p>');
-				   $('#conversation').append('<br>');
+				   $('#box_conversation' + idroom).append('<p class="triangle-isosceles"> <b>'+ username + ': </b> ' + data + '</p>');
+				  
 		      	}
 			    else{
-			    	$('#conversation' + idroom).append('<p class="triangle-isosceles top" > <b>'+ '>>' + username + ':</b> ' + data + '</p>');
-			    	$('#conversation').append('<br>');
+			    	$('#box_conversation' + idroom).append('<p class="mensaje " > <b>'+ '>>' + username + ':</b> ' + data + '</p>');
+			    	
 		        
 				} 
 				//Getting the element's new height now
@@ -63,7 +63,7 @@
 				socket.emit('addagentroom', idroom, agentname,username);
 				console.log(idroom);
 				console.log(username);
-				$('#tabsmsj').append('<div class="contenedor"><input type="radio" checked name="tabs" id="tab'+idroom+'"><label id="tab-' + idroom + '" for="tab'+idroom+'">' + username +'</label><div id="tab-content'+idroom+'" class="tab-content animated fadeIn"><div class="informacion"><div class="info-user"></div><div class="info-agente"></div></div> <div id ="box_conversation' + idroom + '" class="box_conversation"> <div id="conversation'+idroom +'"></div></div><div class="caja-mensaje"><input id="data' + idroom +'" style="width:600px;" /> <input type="button" id="datasend' + idroom +'" value="enviar" /><input type="button" id="logout' + idroom +'" value="Cerrar" /></div><div class="tipificaciones"><div class="tipi"><h5>Tipificaciones de incidencia</h5><select name="transporte"><option>No imprime impresora</option><optionoperativo</option><option>No se puede facturar</option></select><h5>Dialogos Predeterminados</H5><select name="transporte"><option>Buenas tardes</option></select></div> <div class="dialogo"><h5>Origen de Incidencia</h5><select name="transporte"><option>Sistema</option><option>Manual</option></select><h5>Numero de Inicidencias</H5><select name="transporte"><option>1</option><option>2</option><option>3</option></select</div></div></div></li></div>');
+				$('#tabsmsj').append('<div class="contenedor"><input type="radio" checked name="tabs" id="tab'+idroom+'"><label id="tab-' + idroom + '" for="tab'+idroom+'">' + username +'</label><div id="tab-content'+idroom+'" class="tab-content animated fadeIn"><div class="informacion"><div class="info-user"></div><div class="info-agente"></div></div> <div id ="box_conversation' + idroom + '" class="box_conversation" style="display: block;"></div><div class="caja-mensaje"><input id="data' + idroom +'" style="width:600px;" /> <input type="button" id="datasend' + idroom +'" value="enviar" /><input type="button" id="logout' + idroom +'" value="Cerrar" /></div><div class="tipificaciones"><div class="tipi"><h5>Tipificaciones de incidencia</h5><select name="transporte"><option>No imprime impresora</option><optionoperativo</option><option>No se puede facturar</option></select><h5>Dialogos Predeterminados</H5><select name="transporte"><option>Buenas tardes</option></select></div> <div class="dialogo"><h5>Origen de Incidencia</h5><select name="transporte"><option>Sistema</option><option>Manual</option></select><h5>Numero de Inicidencias</H5><select name="transporte"><option>1</option><option>2</option><option>3</option></select</div></div></div></li></div>');
 				var script   = document.createElement("script");
 				script.type  = "text/javascript";
 

@@ -164,49 +164,33 @@ border: 1px solid #BDBDBD;
       
 
     .triangle-isosceles {
-      position: relative;
-      display: table;
-      font-size: 14px;
-      padding: 15px;
-      margin: 10px 0 30px;
-      color: #000;
-      background: #6fb3e0;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      border-radius: 10px;
-      word-break: break-all;
-      hyphens: auto;
-      width: auto;
-      -webkit-box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
-      -moz-box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
-      box-shadow: 10px 10px 5px 0px rgba(193,203,235,1);
-      }
+    clear: both;
+    float: left;
+    margin-bottom: 10px;
+    background: #ccc;
+    word-wrap: break-word;
+    max-width: 95%;
+    border-radius: 5px;
+    padding: 10px;
+     color:#000;
 
-    .triangle-isosceles:after {
-      content: "";
-      position: absolute;
-      bottom: -15px;
-      left: 50px;
-      border-width: 15px 15px 0;
-      border-style: solid;
-      border-color: #6fb3e0 transparent;
-      display: block;
-      width: 0;
-    }
+}
+
+  
 
 
-   .triangle-isosceles.top {
-      background: #87b87f;
-     
-     
-   }
+ .mensaje {
+  background: #87b87f;
+  clear: both;
+   float: right;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  word-wrap: break-word;
+  max-width: 95%;
+  color:#000;
+ }
+   
 
-    .triangle-isosceles.top:after {
-      top: -15px;
-    right: 20px;
-    bottom: auto;
-    left: auto;
-    border-width: 0 15px 15px;
-    border-color: #87b87f transparent;
-    }
+    
   }
