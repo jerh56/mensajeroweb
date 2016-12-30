@@ -35,6 +35,11 @@ router.get('/listas', require('connect-ensure-login').ensureLoggedIn('/login'), 
   res.render('listas', ubigeo.listas);
 });
 
+router.get('/configuracion', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res) {
+  //res.sendFile(__dirname + '/indexUser.html');
+
+  res.render('configuracion', {message: req.flash('message'), user: req.user});
+});
 
 //ejemplo listas desplegables
 
