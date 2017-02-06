@@ -13,15 +13,16 @@ var Descripcion = require('../models/descripcion.js');
 
 
 //ejemplo listas desplegables lista_mensaje
-
 router.get('/lista_mensaje', function(req,res){
   res.render('lista_mensaje');
 });
+//ejemplo listas desplegables lista_mensaje
 
-router.get('/tipificacion', ubigeo.tipificacion);
+
+//router.get('/tipificacion', ubigeo.tipificacion);
 router.get('/tipificacion/db/dpto', ubigeo.dpto);
+router.get('/tipificacion/db/orig/', ubigeo.orig);
 router.get('/tipificacion/db/tipi/:cd', ubigeo.tipi);
-router.get('/tipificacion/db/orig/:cp', ubigeo.orig);
 
 
 router.get('/dialogos/db/dpto', dialogo.dpto);
@@ -29,277 +30,261 @@ router.get('/dialogos/db/dialogo/:cd', dialogo.dialogo);
 //router.get('/lista_mensaje/db/orig/:cp', lista_mensaje.orig);
 
 
-router.get('/listas', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res) {
-  //res.sendFile(__dirname + '/indexUser.html');
+    router.get('/listas', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res) {
+     res.render('listas', ubigeo.listas);
+    });
 
-  res.render('listas', ubigeo.listas);
-});
+    router.get('/configuracion', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res) {
 
-router.get('/configuracion', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res) {
-  //res.sendFile(__dirname + '/indexUser.html');
-
-  res.render('configuracion', {message: req.flash('message'), user: req.user});
-});
-
-//ejemplo listas desplegables
-
-
-
-router.get('/burbuja', function(req, res){
-  res.render('burbuja');
-});
+        res.render('configuracion', {message: req.flash('message'), user: req.user});
+    });
 
 /* GET home page. */
-router.get('/', function(req, res) {
-  res.render('index');
-});
+    router.get('/', function(req, res) {
+        res.render('index');
+    });
 
-  router.get('/user', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res) {
-    //res.sendFile(__dirname + '/indexUser.html');
-    console.log(req.user.username);
-    console.log(req.user.No_empleado);
-    res.render('user', { username: req.user.username, numeroempleado: req.user.No_empleado});
-  });
+    router.get('/user', require('connect-ensure-login').ensureLoggedIn('/login'), function (req, res){
+        console.log(req.user.username);
+        console.log(req.user.No_empleado);
+        res.render('user', { username: req.user.username, numeroempleado: req.user.No_empleado});
+    });
   
   
-  router.get('/agent', require('connect-ensure-login').ensureLoggedIn('/ag_login'), function (req, res) {
-    //res.sendFile(__dirname + '/indexUser.html');
-    console.log(req.user.username);
-    res.render('agent', {agentname: req.user.username});
-  });
+    router.get('/agent', require('connect-ensure-login').ensureLoggedIn('/ag_login'), function (req, res){
+        console.log(req.user.username);
+        res.render('agent', {agentname: req.user.username});
+    });
 
-// PASSPORT
 
-  router.get('/login', function(req, res) {
-    //console.log(req.flash('message'));
-   
-    //res.render('login', {message: 'dfjhdjhsjd'});
-    var msjres = req.flash('message');
-    res.render('login', {message: msjres[0]});
+    router.get('/login', function(req, res){
 
-  });
+        var msjres = req.flash('message');
+        res.render('login', {message: msjres[0]});
+
+    });
   
-    router.get('/ag_login', function(req, res) {
-    //console.log(req.flash('message'));
-   
-    //res.render('login', {message: 'dfjhdjhsjd'});
-    var msjres = req.flash('message');
-    res.render('ag_login', {message: msjres[0]});
-  });
+    router.get('/ag_login', function(req, res){
+
+        var msjres = req.flash('message');
+        res.render('ag_login', {message: msjres[0]});
+    });
 
     //REGISTRO USUARIOS
-  router.get('/registro', function(req, res) {
-  // Display the Login page with any flash message, if any
-  res.render('registro', {message: req.flash('message')});
-  });
+    router.get('/registro', function(req, res){       
+        res.render('registro', {message: req.flash('message')});
+    });
   
     //REGISTRO AGENTES
-  router.get('/ag_registro', function(req, res) {
-  // Display the Login page with any flash message, if any
-  res.render('ag_registro', {message: req.flash('message')});
-  });
+    router.get('/ag_registro', function(req, res){
+
+        res.render('ag_registro', {message: req.flash('message')});
+    });
 
   //ENSURELOGGED USSERS
- router.get('/principal',
-  require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
+    router.get('/principal',require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
+       res.render('principal', {message: req.flash('message'), user: req.user});
+    });
 
-          res.render('principal', {message: req.flash('message'), user: req.user});
- });
+    router.get('/usuario', require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
+       res.render('usuario', {message: req.flash('message'), user: req.user});
+    });
 
-  //ENSURELOGGED USSERS
- router.get('/usuario', require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
-
-          res.render('usuario', {message: req.flash('message'), user: req.user});
- });
-
- router.post('/user', function(req, res){
-
+    router.post('/user', function(req, res){
 
         var newDescripcion = new Descripcion();
+            newDescripcion.coddep = req.body.coddep;
+            newDescripcion.descripcion = req.body.descripcion;
+            //newDescripcion.idroom = currentroom;
 
-          newDescripcion.coddep = req.body.coddep;
-          newDescripcion.descripcion = req.body.descripcion;
 
-
-      newDescripcion.save(function(err) {
+        newDescripcion.save(function(err){
         if (err){
-          console.log('No se pudo hacer registro de la descripcion de el problema: '+err);
-          res.render('error', {message: 'No se pudo hacer registro de la descripcion de el problema: '+err});
+            console.log('No se pudo hacer registro de la descripcion de el problema: '+err);
+            res.render('error', {message: 'No se pudo hacer registro de la descripcion de el problema: '+err});
           }
-          else{
+        else{
             console.log('se guardo descripcion');
-            res.render('user', {username: req.user.username, numeroempleado: req.user.No_empleado});
-            
+            res.render('user', {username: req.user.username, numeroempleado: req.user.No_empleado});            
           }
         });
 
  });
 
 
- router.get('/agente',
-  require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
+    router.get('/agente', require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
+       res.render('agente', {message: req.flash('message'), user: req.user});
+    });
 
-          res.render('agente', {message: req.flash('message'), user: req.user});
- });
-
-  router.get('/seleccion_empresa',
-  require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
-
-          res.render('seleccion_empresa', {message: req.flash('message'), user: req.user});
- });
+    router.get('/seleccion_empresa', require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
+       res.render('seleccion_empresa', {message: req.flash('message'), user: req.user});
+    });
 
 
-  router.get('/chatuser',
-require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
-
+    router.get('/chatuser', require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
         res.render('chatuser', {message: req.flash('message'), user: req.user});
-});
+    });
 
   
  
   //ENSURELOGGED AGENT
-  router.get('/ag_principal',
-  require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
-    console.log(req.user);
-          res.render('ag_principal', {message: req.flash('message'), user: req.user});
- });
+    router.get('/ag_principal', require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
+        console.log(req.user);
+        res.render('ag_principal', {message: req.flash('message'), user: req.user});
+    });
 
-router.get('/agente',
-  require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
-    console.log(req.user);
-          res.render('agente', {message: req.flash('message'), user: req.user});
- });
+    router.get('/agente', require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
+        console.log(req.user);
+        res.render('agente', {message: req.flash('message'), user: req.user});
+    });
  
 
  
 
-  router.get('/signup_success', require('connect-ensure-login').ensureLoggedIn('/login'),
-    function(req, res){
-        //var msjres = req.flash('success');
-        //res.setHeader('Content-Type', 'application/json');
+    router.get('/signup_success', require('connect-ensure-login').ensureLoggedIn('/login'), function(req, res){
         var msjres = req.flash('message');
-        
-        //res.send(JSON.stringify({ error: 0, message: msjres[0]}));
-    res.render('principal', {message: msjres[0], user: req.user});
+        res.render('registro', {message: msjres[0], user: req.user});
+    });
 
-  });
-  
-  router.get('/ag_signup_success', require('connect-ensure-login').ensureLoggedIn('/ag_login'),
-    function(req, res){
-        //var msjres = req.flash('success');
-        //res.setHeader('Content-Type', 'application/json');
+    router.get('/ag_signup_success', require('connect-ensure-login').ensureLoggedIn('/ag_login'), function(req, res){
         var msjres = req.flash('message');
-        
-        //res.send(JSON.stringify({ error: 0, message: msjres[0]}));
-    res.render('ag_principal', {message: msjres[0], user: req.user});
+        res.render('ag_principal', {message: msjres[0], user: req.user});
 
-  });
+    });
 
 
   // Si sucede un error al registrar un usuario se ejecuta esta ruta
-  router.get('/signup_error', function(req, res) {
-     var msjres = req.flash('message');
-    // if (msjres[0]!= undefined){
-         //console.log(msjres[0]);
-         //res.setHeader('Content-Type', 'application/json');
-         //res.send(JSON.stringify({ error: 1, message: msjres[0]}));
-      res.render('signup_error', {message: msjres[0], user: req.user});
-    // }
-    // else {
-    //      res.redirect('/');
-    // }
-  });
+    router.get('/signup_error', function(req, res){
+        var msjres = req.flash('message');
+        res.render('registro', {message: msjres[0], user: req.user});
+    });
   
   // Si sucede un error al registrar un usuario se ejecuta esta ruta
-  router.get('/ag_signup_error', function(req, res) {
-     var msjres = req.flash('message');
-    // if (msjres[0]!= undefined){
-         //console.log(msjres[0]);
-         //res.setHeader('Content-Type', 'application/json');
-         //res.send(JSON.stringify({ error: 1, message: msjres[0]}));
+    router.get('/ag_signup_error', function(req, res){
+
+        var msjres = req.flash('message');
         console.log(req.flash('failure'));
-      res.render('ag_signup_error', {message: msjres[0], user: req.user});
-    // }
-    // else {
-    //      res.redirect('/');
-    // }
-  });
+        res.render('ag_signup_error', {message: msjres[0], user: req.user});
+
+    });
 // PASSPORT
 
 //INCIDENCIA
-router.get('/administrador', function (req,res){
-  res.render('administrador');
-});
+    router.get('/administrador', require('connect-ensure-login').ensureLoggedIn('/ag_login'),  function (req,res){
+        res.render('administrador');
+    });
 
-router.get('/tipificacion', function(req,res){
-  res.render('tipificacion');
-});
+    router.get('/tipificacion', require('connect-ensure-login').ensureLoggedIn('/ag_login'), function(req,res){
 
-router.post('/tipificacion', function(req, res){
+        var msjres = req.flash('message');
+        res.render('tipificacion', {message: msjres[0], user: req.user} );
 
+    });
+
+
+//REGISTRO DE INCIDENCIAS
+router.post('/registroincidencia', function(req, res){
+
+  var despro = req.body.despro;
+
+  Tipificacion.findOne({"despro": despro}, function(err, doc){
+
+    if (doc){
+      console.log('Ya existe esta incidencia');
+      res.render('tipificacion', {message: 'Ya existe esta incidencia', user: req.user})
+    }
+    else{
 
         var countinci = req.body.coddep * 100; 
-        var countorig = countinci * 10 + countinci;
         console.log('Codigo Departamento: '+req.body.coddep);
         console.log('Codigo Incidencia: '+countinci);
 
-  Tipificacion.count( { $and: [ {"codpro":{$gte:countinci}}, {"codpro":{$lt: countinci+100}} ]}, function(err,nCount){
+        Tipificacion.count( { $and: [ {"codpro":{$gte:countinci}}, {"codpro":{$lt: countinci+100}} ]}, function(err,nCount){
 
-          console.log(countorig);
-          var newTipificacion = new Tipificacion();
+            var newTipificacion = new Tipificacion();
+            newTipificacion.codpro = countinci+nCount+1;
+            newTipificacion.despro = req.body.despro;
+            newTipificacion.coddep = req.body.coddep;
 
-          newTipificacion.codpro = countinci+nCount+1;
-          newTipificacion.despro = req.body.despro;
-          newTipificacion.coddep = req.body.coddep;
+            newTipificacion.save(function(err){
+               
+                if (err){
+                    console.log('No se pudo guardar el incidencia: '+err);
+                    res.render('error', {message: 'No se pudo guardar el incidencia: '+err});
+                }
+                else{
+                    console.log('se guardo incidencia');
+                    res.render('tipificacion', {message: 'se guardo incidencia', user: req.user});
+                }
+            });
 
-
-          newTipificacion.save(function(err) {
-          if (err){
-          console.log('No se pudo guardar el incidencia: '+err);
-          res.render('error', {message: 'No se pudo guardar el incidencia: '+err});
-          }
-          else{
-          console.log('se guardo incidencia');
-          }
-          });
-
-
-  Origen.count({ $and: [ {"coddis":{$gte:countorig}}, {"coddis":{$lt: countorig+100}} ]}, function(err, origCount){
-
-          console.log('Este es el counter de Origen: ' +origCount);
-
-          var newOrigen = new Origen();
-
-          newOrigen.codpro = countinci+nCount+1;
-          newOrigen.desdis = req.body.desdis;
-          newOrigen.coddis = countorig+origCount+1;
-
-
-          newOrigen.save(function(err) {
-          if (err){
-            console.log('No se pudo guardar el Origen: '+err);
-            res.render('error', {message: 'No se pudo guardar el Origen: '+err});
-            }
-            else{
-              console.log('se guardo Origen');
-
-              res.render('tipificacion', {message: 'se guardo Origen'});
-
-            }
-          })
-
-
-        });
-
-      });
+        });//count
 
     }
-  );
+
+  });
+
+});
+
+//REGISTRO DE ORIGEN
+router.post('/registroorigen', function(req, res){
+
+    Origen.count({}, function(err,nCount){
+
+        var newOrigen = new Origen();
+        newOrigen.codorig = nCount+1;
+        newOrigen.desorig = req.body.desorig;
 
 
+        newOrigen.save(function(err){
+           
+            if (err){
+                console.log('No se pudo registrar el Origen: '+err);
+                res.render('error', {message: 'No se pudo guardar Origen: '+err});
+            }
+            else{
+                console.log('se guardo origen');
+                res.render('tipificacion', {message: 'se guardo Origen', user: req.user});
+            }
+        });
 
-//ACTUALIZACION DE INCIDENCIAS
 
+    });
+
+});
+
+//ACTUALIZACION DE STATUS
+
+router.post('/updatestatus', function(req,res){
+
+  var codpro = req.body.codpro;
+
+  Tipificacion.findOne({"codpro": codpro}, function(err, doc){
+
+    if (err || !doc){
+      console.log(err);      
+    }
+    else{
+
+      doc.status = req.body.status;
+
+        doc.save(function(err){
+        if (err){
+        console.log(err);
+        }
+        else
+        {
+
+      console.log('Codpro: '+ codpro);
+      console.log('Se actualizo Incidencia' +doc);
+      res.render('tipificacion', {message: 'Se actualizo correctamente', user: req.user})
+          
+      };
+    });
+    }
+
+  });//findone function
+ });//function post
 
 router.post('/tipificacionupdate', function(req,res){
 
@@ -321,25 +306,31 @@ router.post('/tipificacionupdate', function(req,res){
         else
         {
 
-      console.log('Codpro: '+ codpro);
       console.log('Se actualizo Incidencia' +doc);
+      res.render('tipificacion', {message: 'Se actualizo correctamente', user: req.user})
           
       };
     });
     }
 
   });//findone function
+ });//function post
 
-  var coddis = req.body.coddis;
 
-  Origen.findOne({"coddis": coddis}, function(err, doc){
+//ACTUALIZACION DE ORIGEN
+
+router.post('/origenupdate', function(req,res){
+
+  var codorig = req.body.codorig;
+
+  Origen.findOne({"codorig": codorig}, function(err, doc){
 
     if (err || !doc){
       console.log(err);      
     }
     else{
 
-      doc.desdis = req.body.desdis;
+      doc.desorig = req.body.desorig;
 
         doc.save(function(err){
         if (err){
@@ -348,28 +339,25 @@ router.post('/tipificacionupdate', function(req,res){
         else
         {
 
-      console.log('Coddis: '+ coddis);
       console.log('Se actualizo Origen' +doc);
-      res.render('tipificacion', {message: 'Se Actualizo correctamente'});
-    
+      res.render('tipificacion', {message: 'Se actualizo origen correctamente', user: req.user})
+          
       };
     });
     }
 
   });//findone function
+ });//function post
 
-});//function post
 
-//ACTUALIZACION DE INCIDENCIAS
 
-//INCIDENCIA
 
 //DIALOGOS PREDETERMINADOS
-router.get('/dialogos', function(req, res) {
+    router.get('/dialogos', function(req, res){
 
-  var msjres = req.flash('message');
-  res.render('dialogos', {message: msjres[0]});
-});
+        var msjres = req.flash('message');
+        res.render('dialogos', {message: msjres[0]});
+    });
 
 router.post('/dialogos', function(req, res){
 
@@ -380,8 +368,7 @@ router.post('/dialogos', function(req, res){
 
   Dialogo.findOne({$and: [ {"tecla_1": tecla1}, {"tecla_2": tecla2}, {"coddep": coddep}]}, function(err, doc){
 
-    if (!doc)
-    {
+    if (!doc){
 
       Dialogo.count({$and: [ {"coddep":{$gte:coddep}}, {"coddep":{$lt: coddial+100}} ]}, function (err, nCount){
 
@@ -394,7 +381,7 @@ router.post('/dialogos', function(req, res){
                 newDialogo.tecla_2 =  req.body.tecla_2;
                 
 
-      newDialogo.save(function(err) {
+      newDialogo.save(function(err){
         if (err){
           console.log('No se pudo registrar la dialogo : '+err);
           res.render('error', {message: 'No se pudo registrar la dialogo :'});
@@ -462,116 +449,91 @@ router.post('/dialogosupdate', function(req,res){
 
 //REGISTRO DE EMPRESA
 
-  router.get('/registro_empresa',
-  require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
-
-          res.render('registro_empresa', {message: req.flash('message'), user: req.user});
- });
+    router.get('/registro_empresa', require('connect-ensure-login').ensureLoggedIn('/ag_login'),function(req, res){
+        res.render('registro_empresa', {message: req.flash('message'), user: req.user});
+    });
 
 
 router.post('/registro_empresa', function(req, res){
 
-      var newEmpresa = new Empresa();
+        var newEmpresa = new Empresa();
 
+            newEmpresa.Nombre = req.body.Nombre;
+            newEmpresa.Razon_social = req.body.Razon_social;
+            newEmpresa.RFC = req.body.RFC;
+            newEmpresa.Pais = req.body.Pais;
+            newEmpresa.Estado = req.body.Estado;
+            newEmpresa.Ciudad = req.body.Ciudad;
+            newEmpresa.Colonia = req.body.Colonia;
+            newEmpresa.Calle = req.body.Calle;
+            newEmpresa.Numero = req.body.Numero;
+            newEmpresa.Telefono = req.body.Telefono;
 
-          newEmpresa.Nombre = req.body.Nombre;
-          newEmpresa.Razon_social = req.body.Razon_social;
-          newEmpresa.RFC = req.body.RFC;
-          newEmpresa.Pais = req.body.Pais;
-          newEmpresa.Estado = req.body.Estado;
-          newEmpresa.Ciudad = req.body.Ciudad;
-          newEmpresa.Colonia = req.body.Colonia;
-          newEmpresa.Calle = req.body.Calle;
-          newEmpresa.Numero = req.body.Numero;
-          newEmpresa.Telefono = req.body.Telefono;
-
-
-
-      newEmpresa.save(function(err) {
-        if (err){
-          console.log('No se pudo registrar la empresa : '+err);
-          res.render('error', {message: 'No se pudo registrar la empresa :'+err});
-          }
-          else{
-            console.log('se guardo empresa');
-            res.render('registro_empresa', {message: 'se registro correctamente la empresa'});
-
-          }
-        })
-    }
-    );
-
+        newEmpresa.save(function(err){
+            if (err){
+                console.log('No se pudo registrar la empresa : '+err);
+                res.render('error', {message: 'No se pudo registrar la empresa :'+err});
+            }
+            else{
+                console.log('se guardo empresa');
+                res.render('registro_empresa', {message: 'se registro correctamente la empresa'});
+            }
+        });
+}
+);
 //REGISTRO DE EMPRESA
 
 //ORIGEN DE INCIDENCIAS
 
+    router.get('/origenincidencias', function(req,res){
+        res.render('origenincidencias');
+    });
 
-router.get('/origenincidencias', function(req,res){
-  res.render('origenincidencias');
-});
+    router.post('/origenincidencias', function(req, res){
 
-router.post('/origenincidencias', function(req, res){
+        var newOrigen = new Origen();
 
-      var newOrigen = new Origen();
+        newOrigen.Num_origen = req.body.Num_origen;
+        newOrigen.Origen = req.body.Origen;
+        newOrigen.Area = req.body.Area;
 
-      newOrigen.Num_origen = req.body.Num_origen;
-      newOrigen.Origen = req.body.Origen;
-      newOrigen.Area = req.body.Area;
-
-
-
-      newOrigen.save(function(err) {
-        if (err){
-          console.log('No se pudo guardar dialogo : '+err);
-          res.render('error', {message: 'No se pudo guardar dialogo: '+err});
-          }
-          else{
-            console.log('se guardo dialogo');
-            res.render('origenincidencias', {message: 'se guardo dialogo correctamente'});
-
-          }
+        newOrigen.save(function(err){
+            if (err){
+                console.log('No se pudo guardar dialogo : '+err);
+                res.render('error', {message: 'No se pudo guardar dialogo: '+err});
+            }
+            else{
+                console.log('se guardo dialogo');
+                res.render('origenincidencias', {message: 'se guardo dialogo correctamente'});
+            }
         })
-    }
-    );
+    });
 
 //ORIGEN DE INCIDENCIAS
 
 //SELECCION DE DEPARTAMENTO Y DESCRIPCION DE INCIDENCIA
 
-router.post('/departamento', function(req, res){
+    router.post('/departamento', function(req, res){
 
-      var newDepartamento = new Departamento();
+        var newDepartamento = new Departamento();
+        newDepartamento.Departamento = req.body.Departamento;
+        newDepartamento.Descripcion = req.body.Descripcion;
 
-      newDepartamento.Departamento = req.body.Departamento;
-      newDepartamento.Descripcion = req.body.Descripcion;
-
-
-      newDepartamento.save(function(err) {
-        if (err){
-          console.log('No se pudo guardar descripcion y departamento : '+err);
-          res.render('error', {message: 'No se pudo guardar descripcion y departamento: '+err});
-          }
-          else{
-            console.log('se guardo descripcion');
-            console.log(newDepartamento);
-            console.log(req.user);
-            res.render('departamento', {message: req.flash('message'), newDepartamento, user: req.user});
-          }
+        newDepartamento.save(function(err){
+            if (err){
+                console.log('No se pudo guardar descripcion y departamento : '+err);
+                res.render('error', {message: 'No se pudo guardar descripcion y departamento: '+err});
+            }
+            else{
+                console.log('se guardo descripcion');
+                console.log(newDepartamento);
+                console.log(req.user);
+                res.render('departamento', {message: req.flash('message'), newDepartamento, user: req.user});
+            }
         })
-    }
-    );
+    });
 
 //SELECCION DE DEPARTAMENTO Y DESCRIPCION DE INCIDENCIA
-// SOCKET.IO
-/* router.get('/chat',
-  require('connect-ensure-login').ensureLoggedIn('/login'),function(req, res){
-
-    console.log(req.Departamento);
-          res.render('chat', {message: req.flash('message'), departamento: req.Departamento});
- });*/
-// SOCKEY.IO
-
-
 
 // PASSPORT USUARIOS
   router.post('/signin', passport.authenticate('login', {

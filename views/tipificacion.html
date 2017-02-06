@@ -44,7 +44,7 @@
 		<script src=" /js/ace-extra.min.js"></script>
 	</head>
 
-	<body ng-controller="TipificacionCtrl">
+	<body ng-controller="TipificacionCtrl" >
 		<div class="navbar" id="navbar">
 			<script type="text/javascript">
 				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
@@ -67,6 +67,7 @@
 								
 								<span class="user-info">
 									<small>Bienvenido</small>
+									<small><%= user.username %></small>
 								<small></small>
 								</span>
 
@@ -115,141 +116,173 @@
 					
 						<div class="tabbable">
 							<ul class="nav nav-tabs" id="myTab">
+								
 								<li class="active">
-									<a data-toggle="tab" href="#altas">
-										Registro
+									<a data-toggle="tab" href="#altaincidencia">
+										Registro Incidencia
 									</a>
 								</li>
+
+								<li>
+									<a data-toggle="tab" href="#altaorigen">
+										Registro Origen
+									</a>
+								</li>	
+
 								<li>
 									<a data-toggle="tab" href="#bajas">
-										Bajas
+										Baja de incidencia
 
 									</a>
 								</li>
+
 								<li>
 									<a data-toggle="tab" href="#cambios">
-										Cambios
+										Cambios de Incidencia
 									</a>
 								</li>
+
+								<li>
+									<a data-toggle="tab" href="#origenupdate">
+										Cambios de Origen
+									</a>
+								</li>								
+
 							</ul>
+
 						<div class="tab-content">
-							<div id="altas" class="tab-pane in active">
 
-							<form method="post" class="form-horizontal" action="/tipificacion">
-								<h3>Registro de Tipifiacacion de Incidencias</h3>
+							<div id="altaincidencia" class="tab-pane in active">
+								<form method="post" class="form-horizontal" action="/registroincidencia" autocomplete="off">
+									<h3>Registro de Tipifiacacion de Incidencias</h3>
+									<input style="display:none" ng-model="dpto" name="coddep" ng-options="d.coddep as d.desdep for d in dptos"></input>
 
-								<input style="display:none" ng-model="dpto" name="coddep" ng-options="d.coddep as d.desdep for d in dptos"></input>
+										<div class="row-fluid">
+											<label for="form-field-select-1">Incidencia</label>
+											<input type="text" name="despro" id="form-field-1" placeholder="Registra una nueva Incidencia" onpaste="return false" onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event)" required>
+										</div>
+										<h4><%= message %></h4>	
 
-									<div class="row-fluid">
-										<label for="form-field-select-1">Incidencia</label>
-										<input type="text" name="despro" id="form-field-1" placeholder="incidencia">
-									</div>
-								<h3>Registro de Origen de Incidencias</h3>
-									<div class="row-fluid">
-										<label for="form-field-select-1">Origen</label>
-										<input type="text" name="desdis" id="form-field-1" placeholder="incidencia">
-									</div>
 									<button class="btn btn-info" type="submit">
-										<i class="icon-ok bigger-110"></i>
-										Guardar
+									<i class="icon-ok bigger-110"></i>
+									Guardar
 									</button>
-							</form>
+								</form>
 							</div>
-							
-						
+
+
+						<div id="altaorigen" class="tab-pane">
+							<div id="altaorigen" class="tab-pane in active">
+								<form method="post" class="form-horizontal" action="/registroorigen" autocomplete="off">
+									<h3>Registro de Origen de Incidencias</h3>
+
+										<div class="row-fluid">
+											<label for="form-field-select-1">Origen:</label>
+											<input type="text" name="desorig" id="form-field-1" placeholder="Registra un nuevo origen" onpaste="return false" onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event)" required>
+										</div>
+
+
+									<button class="btn btn-info" type="submit">
+									<i class="icon-ok bigger-110"></i>
+									Guardar
+									</button>
+								</form>
+
+
+							</div>
+						</div>
+
 
 
 						<div id="bajas" class="tab-pane">
 							<div id="bajas" class="tab-pane in active">
-								<h3>Baja de Tipificacion de Incidencias</h3>
-									
+								<form method="post" class="form-horizontal" action="/updatestatus">
+									<h3>Baja de Tipificacion de Incidencias</h3>
 									<div class="row-fluid">
-										
 										<label for="form-field-select-1">Incidencia</label>
-												
-										<select ng-model="tipi" ng-change="cargarOrig()">
-										<option ng-repeat="p in tipis" value="{{p.codpro}}">{{p.despro}}</option>
-										</select>
-
-										<input ng-model="tipi" name="codpro" style="display:none" ng-options="d.coddep as d.desdep for d in dptos"></input>
-										
+											<select ng-model="tipi" ng-change="cargarOrig()">
+												<option ng-repeat="p in tipis" value="{{p.codpro}}">{{p.despro}}</option>
+											</select>
+											<input ng-model="tipi" name="codpro" style="display:none" ng-options="d.coddep as d.desdep for d in dptos"></input>
 										<p>Codigo Incidencia {{ tipi }}</p>
-										<p>Estatus: {{ statusorig }}</p>
-
-
 									</div>
-
-								<h3>Cambio de Estatus</h3>
-
+									<h3>Cambio de Estatus</h3>
 									<div class="row-fluid">
-
-										<label for="form-field-select-1">Origen</label>
-
-										<select name="status"id="form-field-select-1">
-										<option value="true">Activar</option>
-										<option value="false">Desactivar</option>
-
+										<label for="form-field-select-1">Estatus:</label>
+										<select name="status" id="form-field-select-1">
+											<option value="true">Activar</option>
+											<option value="false">Desactivar</option>
 										</select>
-
-												
 									</div>
 									<button class="btn btn-info" type="submit">
-										<i class="icon-ok bigger-110"></i>
-										Guardar
+									<i class="icon-ok bigger-110"></i>
+									Guardar
 									</button>
-							</div>
-						</div>
-
-
-						<div id="cambios" class="tab-pane">
-							<div id="cambios" class="tab-pane in active">
-							<form method="post" class="form-horizontal" action="/tipificacionupdate">
-								<h3>Cambios de Tipifiacacion de Incidencias</h3>
-									<div class="row-fluid">
-										
-										<label for="form-field-select-1">Incidencia</label>
-
-										<select ng-model="tipi" ng-change="cargarOrig()">
-										<option ng-repeat="p in tipis" value="{{p.codpro}}">{{p.despro}}</option>
-										</select>
-										<p>Tipificaciones {{ tipi }}</p>
-
-										<input ng-model="tipi" name="codpro" style="display:none" ng-options="d.coddep as d.desdep for d in dptos"></input>
-
-
-										<div class="row-fluid">
-										<label for="form-field-select-1">Cambio Incidencia</label>
-										<input type="text" name="despro" id="form-field-1" placeholder="Incidencia" required></input>
-										</div>
-									</div>								
-								<h3>Cambios de Origen de Incidencias</h3>
-									<div class="row-fluid">
-										<label for="form-field-select-1">Origen</label>
-
-											<select ng-model="orig" ng-options="d.coddis as d.desdis for d in origs"></select>
-											<p>Origen {{ orig }}</p>
-
-											<input ng-model="orig" style="display:none" name="coddis" ng-options="d.coddis as d.desdis for d in origs"></input>
-
-
-										<div class="row-fluid">
-											<label for="form-field-select-1">Cambio Origen</label>
-											<input type="text" name="desdis" id="form-field-1" placeholder="Origen" required>
-										</div>
-									</div>
-										<button class="btn btn-info" type="submit">
-											<i class="icon-ok bigger-110"></i>
-											Guardar
-										</button>
 								</form>
 							</div>
 						</div>
-					
+
+
+					<div id="cambios" class="tab-pane">
+						<form method="post" class="form-horizontal" action="/tipificacionupdate" autocomplete="off">
+							<div id="cambios" class="tab-pane in active">
+								
+									<h3>Cambios de Tipifiacacion de Incidencias</h3>
+										<div class="row-fluid">										
+											<label for="form-field-select-1">Incidencia</label>
+												<select ng-model="tipi" ng-change="cargarOrig()">
+													<option ng-repeat="p in tipis" value="{{p.codpro}}">{{p.despro}}</option>
+												</select>
+												<p>Codigo Incidencia: {{ tipi }}</p>
+												<input ng-model="tipi" name="codpro" style="display:none" ng-options="d.coddep as d.desdep for d in dptos"></input>
+											<div class="row-fluid">
+												<input type="text" name="despro" id="form-field-1" placeholder="Actualiza la Incidencia" onpaste="return false" onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event)" required></input>
+											</div>
+										</div>								
+								
+							</div>
+							<button class="btn btn-info" type="submit">
+								<i class="icon-ok bigger-110"></i>
+								Guardar
+							</button>
+						</form>
+					</div>
+
+
+					<div id="origenupdate" class="tab-pane">
+						<form method="post" class="form-horizontal" action="/origenupdate" autocomplete="off">
+							<div id="origenupdate" class="tab-pane in active">
+								
+									<h3>Cambios Origen de Incidencias</h3>
+										<div class="row-fluid">
+
+											<label for="form-field-select-1">Origen: </label>
+
+            								<select ng-model="orig" ng-options="o.codorig as o.desorig for o in origs"></select>
+
+
+												<p>Codigo Origen: {{ orig }}</p>
+												<input ng-model="orig" name="codorig" style="display:none" ng-options="d.codoirg as d.desorig for d in origs"></input>
+											<div class="row-fluid">
+												<input type="text" name="desorig" id="form-field-1" placeholder="Actualiza el origen" onpaste="return false" onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event)" required></input>
+											</div>
+										</div>						
+								
+							</div>
+							<button class="btn btn-info" type="submit">
+								<i class="icon-ok bigger-110"></i>
+								Guardar
+							</button>
+
+						</form>
+					</div>
+
+
 						</div>
-						</div>
-			</div>
-			
-			
+
+					</div>
+				</div>
+			</div>			
 		</div><!--/.page-content-->
 			
 
@@ -313,6 +346,28 @@
 		<!--basic scripts-->
 
 		<!--[if !IE]>-->
+
+		<script>
+		    function soloLetras(e){
+		       key = e.keyCode || e.which;
+		       tecla = String.fromCharCode(key).toLowerCase();
+		       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+		       especiales = "8-37-39-46";
+
+		       tecla_especial = false
+		       for(var i in especiales){
+		            if(key == especiales[i]){
+		                tecla_especial = true;
+		                break;
+		            }
+		        }
+
+		        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+		            return false;
+		        }
+		    }
+		</script>
+
 
 		<script type="text/javascript">
 			window.jQuery || document.write("<script src=' /js/jquery-2.0.3.min.js'>"+"<"+"/script>");

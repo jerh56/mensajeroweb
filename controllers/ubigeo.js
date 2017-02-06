@@ -9,25 +9,25 @@ module.exports = exports = {
         res.sendFile('tipificacion.html', {root: './views'});
     },
 
-    dpto: function(req, res) {
-        ug.cargarDpto(function(data) {
+    dpto: function(req, res){
+        ug.cargarDpto(function(data){
             res.json(data);
         });
     },
 
-    tipi: function(req, res) {
+    orig: function(req, res){
+        ug.cargarOrig(function(data){
+            res.json(data);
+        });
+    },
+   
+    tipi: function(req, res){
         var cd = req.params.cd;
 
-        ug.cargarTipi(cd, function(data) {
+        ug.cargarTipi(cd, function(data){
             res.json(data);
         });
     },
 
-    orig: function(req, res) {
-        var cp = req. params.cp;
 
-        ug.cargarOrig(cp, function(data) {
-            res.json(data);
-        });
-    }
 };

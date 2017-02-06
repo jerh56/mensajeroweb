@@ -7,6 +7,7 @@ var DescripcionSchema = mongoose.Schema({
 		
 	coddep:				String,
 	descripcion:		String,
+	idroom:				String,
 	
 	
 });

@@ -26,23 +26,16 @@ app.controller('TipificacionCtrl', function($scope, $http) {
                 });*/
                 $scope.tipis = data;
                 $scope.tipi = data[0].codpro;
-                $scope.statusorig = data[0].status;
 
-                $scope.cargarOrig();
             });
     };
 
-    $scope.cargarOrig = function() {
-        // $http.get('/data/dist.json')
-        $http.get('/tipificacion/db/orig/' + $scope.tipi)
-            .success(function(data) {
-                /*data = data.filter(function(item) {
-                    return (item.codpro == $scope.prov);
-                });*/
+        $http.get('/tipificacion/db/orig/')
+            .success(function(data){
+
                 $scope.origs = data;
-                $scope.orig = data[0].coddis;
-
-
+                $scope.orig = data[0].codorig;
             });
-    };
+
+
 });

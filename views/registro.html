@@ -45,6 +45,35 @@
 		<!--inline styles related to this page-->
 		<!--ace settings handler-->
 		<script src=" /js/ace-extra.min.js"></script>
+		<script language=javascript>
+function event_false() {
+window.event.returnValue = false; 
+}
+document.onselectstart = event_false 
+
+var message="No se permite copiar"; 
+
+
+function click(e) {
+if (document.all) {
+if (event.button == 2) {
+alert(message);
+return false;
+}
+}
+if (document.layers) {
+if (e.which == 3) {
+alert(message);
+return false;
+}
+}
+}
+if (document.layers) {
+document.captureEvents(Event.MOUSEDOWN);
+}
+document.onmousedown=click;
+
+</script>
 	</head>
 
 	<body>
@@ -120,9 +149,11 @@
 			<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>Registro de Usuario</h1>
+						<br>
+						<h1><%= message %></h1>
 					</div>
 
-						<form method="post" class="form-horizontal" action="/signup">
+						<form method="post" class="form-horizontal" action="/signup" autocomplete="off">
 							<div class="control-group">
 								<label class="control-label" for="form-field-1">
 									<font>
@@ -130,7 +161,7 @@
 									</font>
 								</label>
 							<div class="controls">
-								<input type="text" id="form-field-1" placeholder="Nombre" name="userlongname" required>
+								<input type="text" id="form-field-1" placeholder="Nombre" name="userlongname" onpaste="return false" onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event)" required>
 							</div>
 								
 							</div>
@@ -142,7 +173,7 @@
 									</font>
 								</label>
 							<div class="controls">
-								<input type="text" id="form-field-1" placeholder="Apellido Paterno" name="Ap_Paterno" required>
+								<input type="text" id="form-field-1" placeholder="Apellido Paterno" name="Ap_Paterno" onpaste="return false" onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event)" required>
 							</div>
 							</div>
 							
@@ -155,35 +186,22 @@
 									</font>
 								</label>
 							<div class="controls">
-								<input type="text" id="form-field-1" placeholder="Apellido Materno" name="Ap_Materno" required>
+								<input type="text" id="form-field-1" placeholder="Apellido Materno" name="Ap_Materno" onpaste="return false" onKeyUp="this.value = this.value.toUpperCase();" onkeypress="return soloLetras(event)" required>
 							</div>
 								
 							</div>
 
-							<div class="control-group">
-								<label class="control-label" for="form-field-1">
-									<font>
-										Puesto:
-									</font>
-								</label>
-								<div class="controls">
-								<select id="form-field-select-1" name="Puesto" required>
-									<option value="">&nbsp;</option>
-									<option value="Usuario">Usuario</option>
-								</select>
-								</div>
-								
-							</div>
+
 							<div class="control-group">
 								<label class="control-label" for="form-field-2"><font><font>Contraseña:</font></font></label>
 									<div class="controls">
-										<input type="password" id="password1" placeholder="Contraseña" name="password" required>	
+										<input type="password" id="password1" onpaste="return false" placeholder="Contraseña" minlength="8" name="password" required>	
 									</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="form-field-2"><font><font> Confirmar Contraseña:</font></font></label>
 									<div class="controls">
-										<input type="password" id="confirmpass" placeholder="Confirmar Contraseña" name="confirmpass" oninput="check(this, 'password1', 'La contraseña no coincide')" required>	
+										<input type="password" id="confirmpass" onpaste="return false" placeholder="Confirmar Contraseña" minlength="8" name="confirmpass" oninput="check(this, 'password1', 'La contraseña no coincide')" required>	
 									</div>
 							</div>
 							<div class="control-group">
@@ -196,6 +214,18 @@
 								<input type="email"  placeholder="Email" name="email" required>		
 							</div>
 							</div>
+
+							<div class="control-group">
+								<label class="control-label" for="form-field-1">
+									<font>
+										Numero de Empleado:
+									</font>
+								</label>
+							<div class="controls">
+								<input type="text" id="form-field-1" placeholder="Numero de Empleado" minlength="8" maxlength="8" onpaste="return false" onkeypress="return soloNumeros(event)" name="No_empleado" required>
+							</div>
+							</div>
+
 							<div class="control-group">
 								<label class="control-label" for="form-field-1">
 									<font>
@@ -204,7 +234,7 @@
 								</label>
 								<div class="controls">
 								<select id="form-field-select-1" name="Pais" required>
-									<option value="">&nbsp;</option>
+
 									<option value="Mexico">Mexico</option>
 								</select>
 								</div>
@@ -218,7 +248,7 @@
 								</label>
 								<div class="controls">
 								<select id="form-field-select-1" name="Estado" required>
-									<option value="">&nbsp;</option>
+
 									<option value="Sinaloa">Sinaloa</option>
 								</select>
 								</div>
@@ -232,7 +262,7 @@
 								</label>
 								<div class="controls">
 								<select id="form-field-select-1" name="Ciudad" required>
-									<option value="">&nbsp;</option>
+
 									<option value="Culiacan">Culiacan</option>
 								</select>
 								</div>
@@ -246,7 +276,6 @@
 								</label>
 								<div class="controls">
 								<select id="form-field-select-1" name="Area" required>
-									<option value="">&nbsp;</option>
 									<option value="Tienda">Tienda</option>
 								</select>
 								</div>
@@ -260,7 +289,7 @@
 								</label>
 								<div class="controls">
 								<select id="form-field-select-1" name="Departamento" required>
-									<option value="">&nbsp;</option >
+
 									<option value="Muebles">Muebles</option>
 									
 								</select>
@@ -268,11 +297,17 @@
 								
 							</div>
 							<div class="form-actions">
-									<button class="btn btn-info" type="submit">
+									
+									<button class="btn btn-info" type="submit" onclick="verificarPassword()>
 										<i class="icon-ok bigger-110"></i>
 										Registrar
 									</button>
-									
+
+									<button class="btn" type="reset" >
+										<i class="icon-refresh"></i>
+									Limpiar formulario
+									</button>
+
 								</div>
 								
 								</form>
@@ -290,6 +325,8 @@
 			window.jQuery || document.write("<script src=' /js/jquery-2.0.3.min.js'>"+"<"+"/script>");
 		</script>
 
+
+
 		<!--<![endif]-->
 
 		<!--[if IE]>
@@ -301,7 +338,10 @@
 		<script type="text/javascript">
 			if("ontouchend" in document) document.write("<script src=' /js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-				<script type="text/javascript">
+
+	
+
+		<script type="text/javascript">
 				function check(input,input2,message) {
 					if (input.value != document.getElementById(input2).value) {
 					input.setCustomValidity(message);
@@ -311,6 +351,29 @@
 			}
 		}
 		</script>
+
+		<script>
+		    function soloLetras(e){
+		       key = e.keyCode || e.which;
+		       tecla = String.fromCharCode(key).toLowerCase();
+		       letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+		       especiales = "8-37-39-46";
+
+		       tecla_especial = false
+		       for(var i in especiales){
+		            if(key == especiales[i]){
+		                tecla_especial = true;
+		                break;
+		            }
+		        }
+
+		        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+		            return false;
+		        }
+		    }
+		</script>		
+
+
 		<script src=" /js/bootstrap.min.js"></script>
 
 		<!--page specific plugin scripts-->

@@ -20,7 +20,7 @@
 
             <label>Tipificaciones :</label>
 
-            <select ng-model="tipi" ng-change="cargarOrig()">
+            <select ng-model="tipi">
 
                 <option ng-repeat="p in tipis" value="{{p.codpro}}">{{p.despro}}</option>
 
@@ -28,7 +28,8 @@
 
             <label>Origen :</label>
 
-            <select ng-model="orig" ng-options="d.coddis as d.desdis for d in origs"></select>
+            <select ng-model="orig" ng-options="o.codorig as o.desorig for o in origs"></select>
+
 
         </fieldset>
         <p></p>

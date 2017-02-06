@@ -5,8 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
-
 // FLASH
 var flash = require('connect-flash'); // middleware para mensajes en passport
 // FLASH
@@ -18,12 +16,10 @@ var users = require('./routes/users');
 var ejs = require('ejs'); // Render
 // EJS
 
-
 // Mongoose
 var dbConfig = require('./models/db.js');
 var mongoose = require('mongoose');
 var User = require('./models/user.js');
-
 // Mongoose
 
 var app = express();
@@ -48,7 +44,9 @@ var sessionRedis = new RedisStore({
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/user.js');
-var bCrypt = require('bcryptjs');
+//var bCrypt = require('bcrypt');
+var bCrypt = require('bcryptjs'); //este modulo es la version compatible con la plataforma windows de bcrypt
+
 // PASSPORT
 
 // view engine setup
@@ -94,7 +92,6 @@ app.io.use(passportSocketIo.authorize({
 
 app.use('/', routes);
 app.use('/users', users);
-//app.use('/agent' agent);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -141,42 +138,27 @@ passport.deserializeUser(function(obj, done) {
 // passport/login.js
 passport.use('login', new LocalStrategy({
     passReqToCallback : true,
-    usernameField: 'email'  // Aqui en lugar de usuario uso el email
+    usernameField: 'email'  // Aqui puede usarse el username, email, o codigo de empleado
    },
   function(req, username, password, done) { 
-    // check in mongo if a user with username exists or not
+    //Se consulta en mongo si el username existe o no
     User.findOne({ 'email' :  username }, 
       function(err, user) {
-        // In case of any error, return using the done method
 
         if (err)
           return done(err);
-        // Username does not exist, log error & redirect back
+        //si el usuario no existe se envia el error y el redirect back
         if (!user){
           console.log('No se encontró el usuario: ' + username);
           return done(null, false, req.flash('message', 'La cuenta o contraseña son incorrectas.'));                 
         }
-
-        // if(user.provider=='google' || user.provider=='facebook'){
-        //   return done(null, false, req.flash('message', 'La cuenta se registró con Google o Facebook y no es válida.'));                 
-        // }
-
-        // if(user.usertype !='user' && user.usertype !='business'){
-        //   return done(null, false, req.flash('message', 'La cuenta no es de un usuario válido'));                 
-        // }
-
-        // User exists but wrong password, log the error 
+        // El usuario existe pero la contraseña es incorrecta
         if (!isValidPassword(user, password)){
           console.log('Contraseña inválida');
           return done(null, false, req.flash('message', 'Contraseña inválida.'));
         }
-        // // User exists but is disabled, log the error 
-        // if (isDisabled(user)){
-        //   console.log('Usuario inhabilitado');
-        //   return done(null, false, req.flash('message', 'Cuenta inhabilitada, favor de entrar a tu bandeja de correo para habilitar tu cuenta'));
-        // }
-        // User and password both match, return user from 
-        // done method which will be treated like success
+
+        //usuario existente y contraseña correcta
         return done(null, user,req.flash('message', 'Inicio de sesión correcto.'));
       }
     );
@@ -187,49 +169,30 @@ passport.use('login', new LocalStrategy({
 // PASSPORT/LOGIN.JS
 passport.use('ag_login', new LocalStrategy({
     passReqToCallback : true,
-    usernameField: 'email'  // Aqui en lugar de usuario uso el email
+    usernameField: 'email'   // Aqui puede usarse el username, email, o codigo de empleado
    },
   function(req, username, password, done) { 
-    // check in mongo if a user with username exists or not
     User.findOne({ 'email' :  username }, 
       function(err, user) {
-        // In case of any error, return using the done method
+  
 
         if (err)
           return done(err);
-        // Username does not exist, log error & redirect back
         if (!user){
           console.log('No se encontró el usuario' + username);
           return done(null, false, req.flash('message', 'La cuenta no existe.'));                 
         }
 
-        // if(user.provider=='google' || user.provider=='facebook'){
-        //   return done(null, false, req.flash('message', 'La cuenta se registró con Google o Facebook y no es válida.'));                 
-        // }
-
-        // if(user.usertype !='user' && user.usertype !='business'){
-        //   return done(null, false, req.flash('message', 'La cuenta no es de un usuario válido'));                 
-        // }
-
-        // User exists but wrong password, log the error 
+   
         if (!isValidPassword(user, password)){
           console.log('Contraseña inválida');
           return done(null, false, req.flash('message', 'Contraseña inválida.'));
         }
-        // // User exists but is disabled, log the error 
-        // if (isDisabled(user)){
-        //   console.log('Usuario inhabilitado');
-        //   return done(null, false, req.flash('message', 'Cuenta inhabilitada, favor de entrar a tu bandeja de correo para habilitar tu cuenta'));
-        // }
-        // User and password both match, return user from 
-        // done method which will be treated like success
+
         return done(null, user,req.flash('message', 'Agente inicio sesión correctamente.'));
       }
     );
 }));
-
-
-
 
 
 
@@ -241,27 +204,22 @@ passport.use('signup', new LocalStrategy({
   function(req, username, password, done) {
 
     findOrCreateUser = function(){
-	// find a user in Mongo with provided username
-	// var acceptTerm = req.param('accept_terms');
-	// if (acceptTerm === undefined){
-	//    return done(null, false,{message:'Acepte los términos y condiciones por favor'});
-	// }
+	// Busca el username en Mongodb
+
      User.findOne({'email':username},function(err, user) {
-        // In case of any error return
+        // en caso de error
          if (err){
            console.log('Error al crear cuenta: '+err);
            return done(err);
          }
-         //console.log("prueba 2");
-       // already exists
-        //var v_userlongname = req.param('userlongname');
-        if (user){ //  && v_userlongname !== 'demoimgnpro' ) {
+        // En caso de que ya existe el usuario
+        if (user){
           console.log('User already exists');
           return done(null, false,req.flash('message', 'Usuario ya existe.'));
         } 
         else {
-          // if there is no user with that email
-          // create the user
+          //cuando no exista el email del usuario se crea un nuevo usuario
+          // la variable User esta declarada y es un require al modelo de Users.
           var newUser = new User();
           // set the user's local credentials
 
@@ -273,9 +231,9 @@ passport.use('signup', new LocalStrategy({
 			newUser.Ap_Paterno = req.body.Ap_Paterno;
 			newUser.Ap_Materno = req.body.Ap_Materno;
 			newUser.username = req.body.userlongname;
-			newUser.Puesto = req.body.Puesto;
 			newUser.password = createHash(password);
 			newUser.email = req.body.email;
+      newUser.No_empleado = req.body.No_empleado;
 			newUser.Pais = req.body.Pais;
 			newUser.Estado = req.body.Estado;
 			newUser.Ciudad = req.body.Ciudad;
@@ -285,49 +243,19 @@ passport.use('signup', new LocalStrategy({
 			
 			
 
-			console.log(newUser);
-          //newUser.accept_terms = req.param('accept_terms');
-          //newUser.usertype = 'user';
-          // if(config.register.usermustactivate == true){
-          //   newUser.disabled = true;
-          // }
-          // else
-          // {
-          //   newUser.disabled = false;
-          // }
-          
-
+			console.log(newUser);     
  
-          // save the user
-          newUser.save(function(err) {
+          //Se guarda el usuario
+          //en caso de error
+          newUser.save(function(err){
             if (err){
               console.log('No se pudo guardar el usuario: '+err);  
               throw err;  
             }
+            //si no existe error
             console.log('Se registró correctamente el usuario');
             return done(null, newUser, req.flash('message', 'Se registró correctamente el usuario.'));
-            
-            // var mailOptions = {
-            //     from: '"Welcome" <welcome@mail-imgnpro.com>', // sender address
-            //     to: username, // list of receivers
-            //     subject: 'Hello', // Subject line
-            //     text: 'Welcome', // plaintext body
-            //     //html: '<a href="www.imgnpro.com/confirmuser"</a>' // html body
-            //     html: '<html>Hi '+ newUser.userlongname  +  '.<br><b>To confirm your account please click the link below</b><br><a href="' + req.headers.host + '/confirmuser/' + newUser._id+'">Confirm acccount</a><br>' + req.headers.host + '/confirmuser/' + newUser._id + '</html>' // html body
-            // };
-            // console.log(mailOptions);
-            // //send mail with defined transport object
-            // transporter.sendMail(mailOptions, function(error, info){
-            //     if(error){
-            //         return console.log(error);
-            //     }
-            //     console.log('Message sent: ' + info.response);
-            // });
-            // createfreespec(newUser._id,function(err,message_spec){
-            //   console.log(message_spec);
-            //   return done(null, newUser, {message:'Se registró correctamente el usuario'});
-            // }); 
-            
+                    
           });
         }
       });
@@ -348,29 +276,19 @@ passport.use('signup', new LocalStrategy({
     function(req, username, password, done) {
 
     findOrCreateUser = function(){
-	// find a user in Mongo with provided username
-	// var acceptTerm = req.param('accept_terms');
-	// if (acceptTerm === undefined){
-	//    return done(null, false,{message:'Acepte los términos y condiciones por favor'});
-	// }
+
      User.findOne({'email':username},function(err, user) {
-        // In case of any error return
          if (err){
            console.log('Error al crear cuenta: '+err);
            return done(err);
          }
-         //console.log("prueba 2");
-       // already exists
-        //var v_userlongname = req.param('userlongname');
-        if (user){ //  && v_userlongname !== 'demoimgnpro' ) {
+
+        if (user){
           console.log('User already exists');
           return done(null, false,req.flash('message', 'Usuario ya existe.'));
         } 
         else {
-          // if there is no user with that email
-          // create the user
           var newUser = new User();
-          // set the user's local credentials
 
           console.log(req.params);
           console.log(req.query);
@@ -380,7 +298,6 @@ passport.use('signup', new LocalStrategy({
 			newUser.Ap_Paterno = req.body.Ap_Paterno;
 			newUser.Ap_Materno = req.body.Ap_Materno;
 			newUser.username = req.body.userlongname;
-			newUser.Puesto = req.body.Puesto;
 			newUser.password = createHash(password);
 			newUser.email = req.body.email;
       newUser.No_empleado = req.body.No_empleado;
@@ -394,16 +311,6 @@ passport.use('signup', new LocalStrategy({
 			
 
 			console.log(newUser);
-          //newUser.accept_terms = req.param('accept_terms');
-          //newUser.usertype = 'user';
-          // if(config.register.usermustactivate == true){
-          //   newUser.disabled = true;
-          // }
-          // else
-          // {
-          //   newUser.disabled = false;
-          // }
-          
 
  
           // save the user
@@ -414,27 +321,6 @@ passport.use('signup', new LocalStrategy({
             }
             console.log('Se registró correctamente el usuario');
             return done(null, newUser, req.flash('message', 'Se registró correctamente el usuario.'));
-            
-            // var mailOptions = {
-            //     from: '"Welcome" <welcome@mail-imgnpro.com>', // sender address
-            //     to: username, // list of receivers
-            //     subject: 'Hello', // Subject line
-            //     text: 'Welcome', // plaintext body
-            //     //html: '<a href="www.imgnpro.com/confirmuser"</a>' // html body
-            //     html: '<html>Hi '+ newUser.userlongname  +  '.<br><b>To confirm your account please click the link below</b><br><a href="' + req.headers.host + '/confirmuser/' + newUser._id+'">Confirm acccount</a><br>' + req.headers.host + '/confirmuser/' + newUser._id + '</html>' // html body
-            // };
-            // console.log(mailOptions);
-            // //send mail with defined transport object
-            // transporter.sendMail(mailOptions, function(error, info){
-            //     if(error){
-            //         return console.log(error);
-            //     }
-            //     console.log('Message sent: ' + info.response);
-            // });
-            // createfreespec(newUser._id,function(err,message_spec){
-            //   console.log(message_spec);
-            //   return done(null, newUser, {message:'Se registró correctamente el usuario'});
-            // }); 
             
           });
         }
@@ -452,11 +338,10 @@ var isValidPassword = function(user, password){
   return bCrypt.compareSync(password, user.password);
 }
 
-// Generates hash using bCrypt
+// Genera hash usando bCrypt var declarada y hace require al modulo bcryptjs o bcryp
 var createHash = function(password){
  return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
 }
-
 
 // PASSPORT
 

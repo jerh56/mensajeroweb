@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 // RegistroEmpresa Schema
 var OrigSchema = mongoose.Schema({
 	
-	codpro: 		String,
-	desdis: 		String,
-	coddis: 		String,
+	codorig: 		String,
+	desorig: 		String,
+
 
 });
 

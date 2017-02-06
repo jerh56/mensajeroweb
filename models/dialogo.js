@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 
-
-
 var dialogoSchema = mongoose.Schema({
 	
 		coddial: 	String,	
